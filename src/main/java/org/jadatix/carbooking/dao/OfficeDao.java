@@ -1,16 +1,16 @@
 package org.jadatix.carbooking.dao;
 
-import org.hibernate.query.Query;
 import org.jadatix.carbooking.model.Office;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Component
 public class OfficeDao {
     private EntityManager entityManager;
     private final String tableName = new String("Office");
@@ -26,8 +26,7 @@ public class OfficeDao {
     }
 
     public List<Office> getAll() {
-        String query = new StringBuilder().append("from ").append(tableName).toString();
-        Query theQuery = (Query) entityManager.createQuery(query, Office.class);
+        TypedQuery<Office> theQuery = entityManager.createQuery("from " + tableName, Office.class);
         List<Office> offices = theQuery.getResultList();
         return offices;
     }

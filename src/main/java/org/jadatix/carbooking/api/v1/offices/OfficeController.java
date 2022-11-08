@@ -21,9 +21,9 @@ public class OfficeController {
     }
 
     @PostMapping
-    public ResponseEntity<Office> addOffice(@RequestBody Office office) {
+    public ResponseEntity<String> addOffice(@RequestBody Office office) {
         officeService.saveOffice(office);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>("Office has been added successfully", HttpStatus.OK);
     }
 
     @GetMapping
@@ -36,26 +36,18 @@ public class OfficeController {
     @GetMapping("/{id}")
     public ResponseEntity<Office> getOfficeById(@PathVariable Long id) {
         Office responseOffice = officeService.getOfficeById(id).get();
-        HttpStatus status = responseOffice != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
-        return new ResponseEntity<>(responseOffice, status);
+        return new ResponseEntity<>(responseOffice, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Office> updateOffice(@PathVariable Long id, @RequestBody Office office) {
+    public void updateOffice(@PathVariable Long id, @RequestBody Office office) {
         office.setId(id);
         officeService.updateOffice(office);
-        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteOfficeById(@PathVariable Long id) {
-        try {
-            officeService.deleteOfficeById(id);
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        } catch (RuntimeException exception) {
-            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-
+    public void deleteOfficeById(@PathVariable Long id) {
+        officeService.deleteOfficeById(id);
     }
 
 }
