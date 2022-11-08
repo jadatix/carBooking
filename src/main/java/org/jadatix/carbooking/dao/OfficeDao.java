@@ -1,50 +1,49 @@
 package org.jadatix.carbooking.dao;
 
 import org.jadatix.carbooking.model.Office;
+import org.jadatix.carbooking.repository.OfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
 public class OfficeDao {
-    private EntityManager entityManager;
+    private OfficeRepository officeRepository;
     private final String tableName = new String("Office");
 
     @Autowired
-    public OfficeDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public OfficeDao(OfficeRepository officeRepository) {
+        this.officeRepository = officeRepository;
     }
 
     public Optional<Office> get(Long id) {
-        Office res = entityManager.find(Office.class, id);
-        return Optional.ofNullable(res);
+        return officeRepository.findById(id);
     }
 
     public List<Office> getAll() {
-        TypedQuery<Office> theQuery = entityManager.createQuery("from " + tableName, Office.class);
-        List<Office> offices = theQuery.getResultList();
-        return offices;
+        return officeRepository.findAll();
     }
 
-    @Transactional
     public void save(Office office) {
-        entityManager.persist(office);
+        officeRepository.save(office);
     }
 
-    @Transactional
     public void update(Office office) {
-        entityManager.merge(office);
+        officeRepository.findById(office.getId())
+                .map(o -> {
+                    o.setCity(Objects.requireNonNull(office.getCity()));
+                    o.setStreet(Objects.requireNonNull(office.getStreet()));
+                    return officeRepository.save(o);
+                })
+                .orElseGet(() -> officeRepository.save(office));
     }
 
-    @Transactional
     public void delete(Long id) {
         Office deletingOffice = get(id).get();
-        entityManager.remove(deletingOffice);
+        officeRepository.delete(deletingOffice);
     }
 
 }
