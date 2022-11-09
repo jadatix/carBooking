@@ -10,8 +10,12 @@ import java.util.Optional;
 
 @Component
 public class UserDao {
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public UserDao(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public Optional<User> get(Long id) {
         return userRepository.findById(id);
@@ -21,20 +25,12 @@ public class UserDao {
         return userRepository.findAll();
     }
 
-    public void save(User user) {
-        userRepository.save(user);
+    public User create(User user) {
+        return userRepository.save(user);
     }
 
-    public User update(Long id, User user) {
-        return userRepository.findById(id)
-                .map(user1 -> {
-                    user1.setRole(user.getRole());
-                    return userRepository.save(user1);
-                })
-                .orElseGet(() -> {
-                    user.setId(id);
-                    return userRepository.save(user);
-                });
+    public User update(User user) {
+        return userRepository.save(user);
     }
 
     public void delete(Long id) {

@@ -1,24 +1,25 @@
 package org.jadatix.carbooking.api;
 
-import org.jadatix.carbooking.api.v1.users.UserAlreadyExists;
-import org.jadatix.carbooking.api.v1.users.UserNotFound;
+import org.jadatix.carbooking.exception.UserAlreadyExistsException;
+import org.jadatix.carbooking.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class ExceptionHandler {
-    @org.springframework.web.bind.annotation.ExceptionHandler(UserNotFound.class)
+public class ApiExceptionHandler {
+    @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String userNotFoundHandler(UserNotFound ex) {
+    String userNotFoundHandler(UserNotFoundException ex) {
         return ex.getMessage();
     }
 
     @ResponseBody
-    @org.springframework.web.bind.annotation.ExceptionHandler(UserAlreadyExists.class)
+    @ExceptionHandler(UserAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    String userAlreadyExistHandler(UserAlreadyExists ex) {
+    String userAlreadyExistHandler(UserAlreadyExistsException ex) {
         return ex.getMessage();
     }
 }

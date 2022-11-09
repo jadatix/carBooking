@@ -26,17 +26,6 @@ public class User {
     public User() {
     }
 
-    public User(Role role, String passport,
-                String fullName, String email,
-                String secret, LocalDate birthday) {
-        this.role = role;
-        this.passport = passport;
-        this.fullName = fullName;
-        this.email = email;
-        this.secret = secret;
-        this.birthday = birthday;
-    }
-
     public Long getId() {
         return id;
     }
@@ -95,8 +84,10 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         User user = (User) o;
         return id.equals(user.id);
     }
@@ -104,18 +95,5 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", role=" + role +
-                ", passport='" + passport + '\'' +
-                ", full_name='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", secret='" + secret + '\'' +
-                ", birthday=" + birthday +
-                '}';
     }
 }
