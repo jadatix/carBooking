@@ -59,12 +59,4 @@ public class Office {
         return Objects.hash(getId());
     }
 
-    @Override
-    public String toString() {
-        return "Office{" +
-                "id=" + id +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                '}';
-    }
 }

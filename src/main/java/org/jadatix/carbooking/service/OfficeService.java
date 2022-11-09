@@ -18,24 +18,25 @@ public class OfficeService {
         this.officeDao = officeDao;
     }
 
-    public List<Office> getAllOffices() {
+    public List<Office> getAll() {
         return officeDao.getAll();
     }
 
-    public void saveOffice(Office office) {
+    public void save(Office office) {
         officeDao.save(office);
     }
 
-    public Optional<Office> getOfficeById(Long id) {
+    public Optional<Office> get(Long id) {
         return officeDao.get(id);
     }
 
-    public void updateOffice(Office office) {
+    public Office update(Long id, Office office) {
         //validation?
-        officeDao.update(office);
+        office.setId(id);
+        return officeDao.update(office);
     }
 
-    public void deleteOfficeById(Long id) {
+    public void delete(Long id) {
         officeDao.delete(id);
     }
 }

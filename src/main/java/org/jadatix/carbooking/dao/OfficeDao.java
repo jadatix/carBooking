@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Component
 public class OfficeDao {
     private OfficeRepository officeRepository;
-    private final String tableName = new String("Office");
 
     @Autowired
     public OfficeDao(OfficeRepository officeRepository) {
@@ -31,19 +29,13 @@ public class OfficeDao {
         officeRepository.save(office);
     }
 
-    public void update(Office office) {
-        officeRepository.findById(office.getId())
-                .map(o -> {
-                    o.setCity(Objects.requireNonNull(office.getCity()));
-                    o.setStreet(Objects.requireNonNull(office.getStreet()));
-                    return officeRepository.save(o);
-                })
-                .orElseGet(() -> officeRepository.save(office));
+    public Office update(Office office) {
+        return officeRepository.save(office);
     }
 
     public void delete(Long id) {
-        Office deletingOffice = get(id).get();
-        officeRepository.delete(deletingOffice);
+        Optional<Office> deletingOffice = get(id);
+        deletingOffice.ifPresent(officeRepository::delete);
     }
 
 }
