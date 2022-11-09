@@ -12,12 +12,8 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/users")
 public class UserController {
-    private final UserService userService;
-
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -48,7 +44,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUserById(@RequestBody User user,
-                                               @PathVariable("id") Long id) {
+            @PathVariable("id") Long id) {
         User updatedUser = userService.updateUserById(id, user);
         return ResponseEntity.ok().body(updatedUser);
     }

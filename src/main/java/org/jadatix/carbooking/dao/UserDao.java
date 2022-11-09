@@ -10,12 +10,8 @@ import java.util.Optional;
 
 @Component
 public class UserDao {
-    private final UserRepository userRepository;
-
     @Autowired
-    public UserDao(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     public Optional<User> get(Long id) {
         return userRepository.findById(id);
