@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,13 +16,15 @@ class OfficeServiceTest {
 
     @Autowired
     private OfficeService officeService;
-    private Random random = new Random(2022);
+
+    private SecureRandom random = new SecureRandom();
 
     private Office initOffice() {
         return new Office("Chernivtsi", "Bohdana Khmelnytskoho " + random.nextInt(101 - 1));
     }
 
-    private void officeCheck(Office expected, Office actual) {
+
+    private void assertOffice(Office expected, Office actual) {
         assertEquals(expected.getCity(), actual.getCity());
         assertEquals(expected.getStreet(), actual.getStreet());
     }
@@ -33,7 +36,8 @@ class OfficeServiceTest {
 
         offices.forEach(office -> {
             Office actual = officeService.get(office.getId()).get();
-            officeCheck(office, actual);
+
+            assertOffice(office, actual);
         });
     }
 
@@ -42,7 +46,8 @@ class OfficeServiceTest {
         Office expected = initOffice();
         officeService.save(expected);
         Office actual = officeService.get(expected.getId()).get();
-        officeCheck(expected, actual);
+
+        assertOffice(expected, actual);
     }
 
     @Test
@@ -50,7 +55,8 @@ class OfficeServiceTest {
         Office expected = initOffice();
         officeService.save(expected);
         Office actual = officeService.get(expected.getId()).get();
-        officeCheck(expected, actual);
+
+        assertOffice(expected, actual);
     }
 
     @Test
@@ -60,7 +66,8 @@ class OfficeServiceTest {
         expected.setCity("Kyiv");
         officeService.update(expected.getId(), expected);
         Office actual = officeService.get(expected.getId()).get();
-        officeCheck(expected, actual);
+
+        assertOffice(expected, actual);
     }
 
     @Test
@@ -71,4 +78,5 @@ class OfficeServiceTest {
         officeService.delete(deletedId);
         assertEquals(false, officeService.get(deletedId).isPresent());
     }
+
 }
