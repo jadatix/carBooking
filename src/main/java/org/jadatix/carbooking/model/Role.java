@@ -1,7 +1,5 @@
 package org.jadatix.carbooking.model;
 
-import javax.persistence.Entity;
-
 public enum Role {
     // Manager to provide access customer to car
     MANAGER,
