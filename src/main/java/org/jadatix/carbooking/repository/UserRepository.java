@@ -1,6 +1,6 @@
 package org.jadatix.carbooking.repository;
 
-import org.jadatix.carbooking.models.User;
+import org.jadatix.carbooking.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

@@ -3,7 +3,7 @@ package org.jadatix.carbooking.service;
 import org.jadatix.carbooking.dao.UserDao;
 import org.jadatix.carbooking.exception.UserAlreadyExistsException;
 import org.jadatix.carbooking.exception.UserNotFoundException;
-import org.jadatix.carbooking.models.User;
+import org.jadatix.carbooking.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

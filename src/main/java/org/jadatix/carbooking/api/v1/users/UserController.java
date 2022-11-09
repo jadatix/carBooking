@@ -1,6 +1,6 @@
 package org.jadatix.carbooking.api.v1.users;
 
-import org.jadatix.carbooking.models.User;
+import org.jadatix.carbooking.model.User;
 import org.jadatix.carbooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

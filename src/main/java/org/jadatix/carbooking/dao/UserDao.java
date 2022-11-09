@@ -1,6 +1,6 @@
 package org.jadatix.carbooking.dao;
 
-import org.jadatix.carbooking.models.User;
+import org.jadatix.carbooking.model.User;
 import org.jadatix.carbooking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

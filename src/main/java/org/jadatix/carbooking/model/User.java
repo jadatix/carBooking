@@ -1,4 +1,4 @@
-package org.jadatix.carbooking.models;
+package org.jadatix.carbooking.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;

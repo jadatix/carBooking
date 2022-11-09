@@ -1,8 +1,8 @@
 package org.jadatix.carbooking.demodata;
 
 import org.jadatix.carbooking.dao.UserDao;
-import org.jadatix.carbooking.models.Role;
-import org.jadatix.carbooking.models.User;
+import org.jadatix.carbooking.model.Role;
+import org.jadatix.carbooking.model.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
