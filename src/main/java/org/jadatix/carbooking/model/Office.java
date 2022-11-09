@@ -49,7 +49,7 @@ public class Office {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof Office)) return false;
+        if (!(o instanceof Office)) return false;
         Office office = (Office) o;
         return this.getId().equals(office.getId());
     }
