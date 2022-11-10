@@ -7,19 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
-import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserServiceTest {
     @Autowired
     private UserService userService;
-    private final static Random rand = new Random();
 
     @Test
     void getAll() {
@@ -28,7 +26,7 @@ class UserServiceTest {
 
         users.forEach(user -> {
             User actualUser = userService.get(user.getId());
-            checkUser(user, actualUser);
+            assertTrue(checkUser(user, actualUser));
         });
     }
 
@@ -38,7 +36,7 @@ class UserServiceTest {
         userService.create(user);
         User actualUser = userService.get(user.getId());
 
-        checkUser(user, actualUser);
+        assertNotNull(actualUser.getId());
     }
 
     @Test
@@ -47,7 +45,7 @@ class UserServiceTest {
         userService.create(user);
         User actualUser = userService.get(user.getId());
 
-        checkUser(user, actualUser);
+        assertTrue(checkUser(user, actualUser));
     }
 
     @Test
@@ -67,10 +65,12 @@ class UserServiceTest {
         User updatedUser = userService.update(user.getId(), user);
 
         User actualUser = userService.get(user.getId());
-        checkUser(updatedUser, actualUser);
+
+        assertTrue(checkUser(user, actualUser));
     }
 
     private String randomString()  {
+        SecureRandom rand = new SecureRandom();
         return rand.ints(48, 123)
                 .filter(Character::isAlphabetic)
                 .limit(15)
@@ -90,7 +90,7 @@ class UserServiceTest {
         return user;
     }
 
-    private void checkUser(User user, User actualUser) {
+    private boolean checkUser(User user, User actualUser) {
         assertEquals(actualUser.getId(), user.getId());
         assertEquals(actualUser.getRole(), user.getRole());
         assertEquals(actualUser.getPassport(), user.getPassport());
@@ -98,5 +98,6 @@ class UserServiceTest {
         assertEquals(actualUser.getEmail(), user.getEmail());
         assertEquals(actualUser.getSecret(), user.getSecret());
         assertEquals(actualUser.getBirthday(), user.getBirthday());
+        return true;
     }
 }
