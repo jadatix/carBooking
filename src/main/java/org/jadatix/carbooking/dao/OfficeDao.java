@@ -25,8 +25,8 @@ public class OfficeDao {
         return officeRepository.findAll();
     }
 
-    public void save(Office office) {
-        officeRepository.save(office);
+    public Office save(Office office) {
+        return officeRepository.save(office);
     }
 
     public Office update(Office office) {

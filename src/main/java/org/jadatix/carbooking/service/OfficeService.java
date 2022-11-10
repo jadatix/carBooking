@@ -22,8 +22,8 @@ public class OfficeService {
         return officeDao.getAll();
     }
 
-    public void save(Office office) {
-        officeDao.save(office);
+    public Office save(Office office) {
+        return officeDao.save(office);
     }
 
     public Optional<Office> get(Long id) {
