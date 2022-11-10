@@ -22,7 +22,7 @@ public class OfficeController {
 
     @PostMapping
     public ResponseEntity<String> addOffice(@RequestBody Office office) {
-        officeService.save(office);
+        officeService.create(office);
         return new ResponseEntity<>("Office has been added successfully", HttpStatus.OK);
     }
 
@@ -35,7 +35,7 @@ public class OfficeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Office> getOfficeById(@PathVariable Long id) {
-        Office responseOffice = officeService.get(id).get();
+        Office responseOffice = officeService.get(id);
         return new ResponseEntity<>(responseOffice, HttpStatus.OK);
     }
 

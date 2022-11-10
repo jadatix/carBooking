@@ -23,7 +23,7 @@ public class OfficeDemoData {
             List<Office> offices = Arrays.asList(new Office("Chernivtsi", "Holovna"), new Office("Chernivtsi", "S. Bandery"));
             offices.forEach(office -> {
                 log.info("Preloading {}", office);
-                officeDao.save(office);
+                officeDao.create(office);
             });
         };
     }

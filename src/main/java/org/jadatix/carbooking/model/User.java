@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements IdentifierEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -26,10 +26,12 @@ public class User {
     public User() {
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
