@@ -1,12 +1,8 @@
 package org.jadatix.carbooking.service;
 
-import org.jadatix.carbooking.model.Role;
 import org.jadatix.carbooking.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDate;
-import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,14 +24,7 @@ class UserServiceTest extends AbstractServiceTest<User> {
 
     @Override
     protected User generateEntity() {
-        User user = new User();
-        user.setRole(Role.USER);
-        user.setPassport(getRandomString());
-        user.setFullName(getRandomString());
-        user.setEmail(getRandomString() + "@gmail.com");
-        user.setSecret(getRandomString());
-        user.setBirthday(LocalDate.of(2002, Month.SEPTEMBER, 10));
-        return user;
+       return User.builder().build();
     }
 
     @Override

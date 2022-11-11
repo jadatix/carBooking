@@ -20,13 +20,13 @@ abstract class AbstractDao<T extends IdentifierEntity> implements Dao<T> {
     }
 
     @Override
-    public T create(T t) {
-        return getRepository().save(t);
+    public T create(T entity) {
+        return getRepository().save(entity);
     }
 
     @Override
-    public T update(T t) {
-        return getRepository().save(t);
+    public T update(T entity) {
+        return getRepository().save(entity);
     }
 
     @Override

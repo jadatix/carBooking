@@ -1,13 +1,12 @@
 package org.jadatix.carbooking.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
 @Table(name = "office")
-public class Office implements IdentifierEntity {
+public class Office extends AbstractEntity<Office> {
     @Id
     @GeneratedValue
     private Long id;
@@ -22,9 +21,8 @@ public class Office implements IdentifierEntity {
     public Office() {
     }
 
-    public Office(String city, String street) {
-        this.city = city;
-        this.street = street;
+    public static Builder builder() {
+        return new Office().new Builder();
     }
 
     @Override
@@ -41,16 +39,8 @@ public class Office implements IdentifierEntity {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getStreet() {
         return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
     }
 
     @Override
@@ -66,4 +56,28 @@ public class Office implements IdentifierEntity {
         return Objects.hash(getId());
     }
 
+    public class Builder extends AbstractBuilder<Office> {
+        public Builder setCity(String city) {
+            Office.this.city = city;
+            return this;
+        }
+
+        public Builder setStreet(String street) {
+            Office.this.street = street;
+            return this;
+        }
+
+        @Override
+        public Office build() {
+            if (Objects.isNull(Office.this.city)) {
+                Office.this.city = getRandomString();
+            }
+
+            if (Objects.isNull(Office.this.street)) {
+                Office.this.street = getRandomString();
+            }
+
+            return Office.this;
+        }
+    }
 }

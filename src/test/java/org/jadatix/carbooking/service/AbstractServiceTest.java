@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.security.SecureRandom;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 abstract class AbstractServiceTest<T extends IdentifierEntity> {
@@ -14,7 +15,7 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> {
     void getAll() {
         List<T> entities = List.of(generateEntity(), generateEntity());
         entities.forEach(getService()::create);
-        entities.forEach(t -> assertEntity(t, getService().get(t.getId())));
+        entities.forEach(entity -> assertEntity(entity, getService().get(entity.getId())));
     }
 
     @Test
@@ -35,21 +36,21 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> {
         assertEntity(entity, actual);
     }
 
-   @Test
-   void delete() {
+    @Test
+    void delete() {
         T entity = generateEntity();
         getService().create(entity);
         Long id = entity.getId();
         getService().delete(id);
 
         assertNull(getService().get(id));
-   }
+    }
 
-   @Test
-   void deleteNotExists() {
+    @Test
+    void deleteNotExists() {
         T entity = generateEntity();
         getService().delete(entity.getId());
-   }
+    }
 
 
     @Test
@@ -79,6 +80,7 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> {
     protected abstract void assertEntity(T actualEntity, T expectedEntity);
 
     protected abstract T generateEntity();
+
 
     protected abstract EntityService<T> getService();
 }

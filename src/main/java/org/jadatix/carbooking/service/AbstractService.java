@@ -18,8 +18,8 @@ abstract class AbstractService<T extends IdentifierEntity> implements EntityServ
     }
 
     @Override
-    public T create(T t) {
-       return getDao().create(t);
+    public T create(T entity) {
+       return getDao().create(entity);
     }
 
     @Override
@@ -32,9 +32,9 @@ abstract class AbstractService<T extends IdentifierEntity> implements EntityServ
     }
 
     @Override
-    public T update(Long id, T t) {
-        t.setId(id);
-        return getDao().update(t);
+    public T update(Long id, T newEntity) {
+        newEntity.setId(id);
+        return getDao().update(newEntity);
     }
 
     protected abstract Dao<T> getDao();

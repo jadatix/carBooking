@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService extends AbstractService<User> {
-    private UserDao dao;
+    private final UserDao dao;
 
     public UserService(UserDao dao) {
         this.dao = dao;

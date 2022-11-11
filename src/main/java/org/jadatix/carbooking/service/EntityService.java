@@ -9,9 +9,9 @@ interface EntityService<T extends IdentifierEntity> {
 
     T get(Long id);
 
-    T create(T t);
+    T create(T entity);
 
     void delete(Long id);
 
-    T update(Long id, T t);
+    T update(Long id, T newEntity);
 }

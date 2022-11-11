@@ -10,9 +10,9 @@ public interface Dao<T extends IdentifierEntity> {
 
     List<T> getAll();
 
-    T create(T t);
+    T create(T entity);
 
-    T update(T t);
+    T update(T entity);
 
     void delete(Long id);
 }

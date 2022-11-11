@@ -16,24 +16,9 @@ public class UserDemoData {
     @Bean
     CommandLineRunner commandLineRunner(UserDao userDao) {
         return args -> {
-            User ivan = new User();
-            ivan.setRole(Role.USER);
-            ivan.setPassport("passport1");
-            ivan.setFullName("Ivan Tkachuk");
-            ivan.setEmail("tkachuk.ivan.v@chnu.edu.ua");
-            ivan.setSecret("secret");
-            ivan.setBirthday(LocalDate.of(2002, Month.SEPTEMBER, 10));
-
-
-            User andrii = new User();
-            andrii.setRole(Role.USER);
-            andrii.setPassport("passport2");
-            andrii.setFullName("Andrii Liashenko");
-            andrii.setEmail("andrii.liashenko@chnu.edu.ua");
-            andrii.setSecret("secret");
-            andrii.setBirthday(LocalDate.of(2002, Month.DECEMBER, 8));
-
-            List.of(ivan, andrii).forEach(userDao::create);
+            User user1 = User.builder().setRole(Role.USER).setFullName("Ivan Tkachuk").setBirthday(LocalDate.of(2002, Month.SEPTEMBER, 10)).build();
+            User user2 = User.builder().setRole(Role.MANAGER).setFullName("Andrii Liashenko").setBirthday(LocalDate.of(2002, Month.DECEMBER, 8)).build();
+            List.of(user1, user2).forEach(userDao::create);
         };
     }
 }

@@ -19,10 +19,7 @@ class OfficeServiceTest extends AbstractServiceTest<Office> {
 
     @Override
     protected Office generateEntity() {
-        Office office = new Office();
-        office.setCity(getRandomString());
-        office.setStreet(getRandomString());
-        return office;
+        return Office.builder().build();
     }
 
     @Override
