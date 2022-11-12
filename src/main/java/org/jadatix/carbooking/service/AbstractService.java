@@ -1,6 +1,7 @@
 package org.jadatix.carbooking.service;
 
 import org.jadatix.carbooking.dao.Dao;
+import org.jadatix.carbooking.exception.NotFoundException;
 import org.jadatix.carbooking.model.IdentifierEntity;
 
 import java.util.List;
@@ -26,7 +27,7 @@ abstract class AbstractService<T extends IdentifierEntity> implements EntityServ
     public void delete(Long id) {
         Optional<T> found = getDao().get(id);
         if (found.isEmpty()) {
-            throw new RuntimeException();
+            throw new NotFoundException("Not found with id " + id);
         }
         getDao().delete(id);
     }
