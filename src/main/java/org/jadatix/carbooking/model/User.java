@@ -1,6 +1,9 @@
 package org.jadatix.carbooking.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -10,16 +13,28 @@ public class User implements IdentifierEntity {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(nullable = false)
     private Role role;
+
+    @NotBlank
+    @Size(min = 6)
     @Column(unique = true, nullable = false)
     private String passport;
+
+    @NotBlank
     @Column(name = "full_name", nullable = false)
     private String fullName;
+
+    @Pattern(regexp = "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$")
     @Column(unique = true, nullable = false)
     private String email;
+
+    @NotBlank
+    @Size(min = 8)
     @Column(nullable = false)
     private String secret;
+
     @Column(nullable = false)
     private LocalDate birthday;
 

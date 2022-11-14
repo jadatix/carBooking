@@ -1,6 +1,7 @@
 package org.jadatix.carbooking.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -11,10 +12,11 @@ public class Office implements IdentifierEntity {
     @GeneratedValue
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String city;
 
-    @Size(min = 1)
+    @NotBlank
     @Column(nullable = false)
     private String street;
 
