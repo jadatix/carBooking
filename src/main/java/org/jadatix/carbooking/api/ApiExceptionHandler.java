@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
+
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     String userNotFoundHandler(UserNotFoundException ex) {
@@ -22,4 +23,5 @@ public class ApiExceptionHandler {
     String userAlreadyExistHandler(UserAlreadyExistsException ex) {
         return ex.getMessage();
     }
+
 }
