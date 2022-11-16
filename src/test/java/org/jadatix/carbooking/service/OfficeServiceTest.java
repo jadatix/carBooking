@@ -1,5 +1,6 @@
 package org.jadatix.carbooking.service;
 
+import org.jadatix.carbooking.builder.OfficeBuilder;
 import org.jadatix.carbooking.model.Office;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,10 +21,7 @@ class OfficeServiceTest extends AbstractServiceTest<Office> {
 
     @Override
     protected Office generateEntity() {
-        Office office = new Office();
-        office.setCity(getRandomString());
-        office.setStreet(getRandomString());
-        return office;
+        return OfficeBuilder.builder().build();
     }
 
     @Override
