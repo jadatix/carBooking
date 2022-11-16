@@ -1,11 +1,11 @@
 package org.jadatix.carbooking.model;
 
-import javax.persistence.*;
-<<<<<<< HEAD
-import javax.validation.constraints.NotBlank;
-=======
-import javax.validation.constraints.Size;
->>>>>>> dev
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+
 import java.util.Objects;
 
 @Entity
