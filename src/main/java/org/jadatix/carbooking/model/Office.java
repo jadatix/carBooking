@@ -1,21 +1,24 @@
 package org.jadatix.carbooking.model;
 
 import javax.persistence.*;
+<<<<<<< HEAD
 import javax.validation.constraints.NotBlank;
+=======
+import javax.validation.constraints.Size;
+>>>>>>> dev
 import java.util.Objects;
 
 @Entity
 @Table(name = "office")
-public class Office {
+public class Office implements IdentifierEntity {
+
     @Id
     @GeneratedValue
     private Long id;
 
-    @NotBlank
     @Column(nullable = false)
     private String city;
 
-    @NotBlank
     @Column(nullable = false)
     private String street;
 
@@ -27,10 +30,12 @@ public class Office {
         this.street = street;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -53,8 +58,10 @@ public class Office {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Office)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Office))
+            return false;
         Office office = (Office) o;
         return this.getId().equals(office.getId());
     }

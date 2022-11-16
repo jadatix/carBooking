@@ -6,30 +6,39 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements IdentifierEntity {
+
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(nullable = false)
     private Role role;
+
     @Column(unique = true, nullable = false)
     private String passport;
+
     @Column(name = "full_name", nullable = false)
     private String fullName;
+
     @Column(unique = true, nullable = false)
     private String email;
+
     @Column(nullable = false)
     private String secret;
+
     @Column(nullable = false)
     private LocalDate birthday;
 
     public User() {
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -84,8 +93,10 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof User))
+            return false;
         User user = (User) o;
         return id.equals(user.id);
     }
@@ -94,4 +105,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
