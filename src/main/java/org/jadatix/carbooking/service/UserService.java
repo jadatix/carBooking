@@ -5,6 +5,7 @@ import org.jadatix.carbooking.exception.UserAlreadyExistsException;
 import org.jadatix.carbooking.exception.UserNotFoundException;
 import org.jadatix.carbooking.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +33,8 @@ public class UserService {
         if (foundUser.isPresent()) {
             throw new UserAlreadyExistsException();
         }
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setSecret(encoder.encode(user.getSecret()));
         return userDao.create(user);
     }
 

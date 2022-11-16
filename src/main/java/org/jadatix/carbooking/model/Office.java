@@ -1,8 +1,7 @@
 package org.jadatix.carbooking.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -12,13 +11,12 @@ public class Office {
     @GeneratedValue
     private Long id;
 
-    @Pattern(regexp = "[A-ZА-ЯЮЄЇЙ][a-zа-яюєїй]+",message = "The first letter should be capital")
+    @NotBlank
     @Column(nullable = false)
     private String city;
 
-    @Size(min = 1)
+    @NotBlank
     @Column(nullable = false)
-    @Pattern(regexp = "[([A-ZА-ЯЮЄЇЙ][a-zа-яюєїй ]+)+[0-9]+[a-z]{0,2}]")
     private String street;
 
     public Office() {

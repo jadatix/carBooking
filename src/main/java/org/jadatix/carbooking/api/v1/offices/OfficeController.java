@@ -23,7 +23,7 @@ public class OfficeController {
     @PostMapping
     public ResponseEntity<String> addOffice(@RequestBody Office office) {
         officeService.save(office);
-        return new ResponseEntity<>("Office has been added successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Office has been added successfully", HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -46,8 +46,9 @@ public class OfficeController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOfficeById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteOfficeById(@PathVariable Long id) {
         officeService.delete(id);
+        return new ResponseEntity<>("Office has been deleted successfully",HttpStatus.NO_CONTENT);
     }
 
 }
