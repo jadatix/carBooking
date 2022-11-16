@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Component
 abstract class AbstractDao<T extends IdentifierEntity> implements Dao<T> {
+
     @Override
     public Optional<T> get(Long id) {
         return getRepository().findById(id);
@@ -36,4 +37,5 @@ abstract class AbstractDao<T extends IdentifierEntity> implements Dao<T> {
     }
 
     protected abstract JpaRepository<T, Long> getRepository();
+
 }

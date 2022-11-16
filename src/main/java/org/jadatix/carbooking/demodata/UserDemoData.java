@@ -13,6 +13,7 @@ import java.util.List;
 
 @Configuration
 public class UserDemoData {
+
     @Bean
     CommandLineRunner commandLineRunner(UserDao userDao) {
         return args -> {
@@ -23,7 +24,6 @@ public class UserDemoData {
             ivan.setEmail("tkachuk.ivan.v@chnu.edu.ua");
             ivan.setSecret("secret");
             ivan.setBirthday(LocalDate.of(2002, Month.SEPTEMBER, 10));
-
 
             User andrii = new User();
             andrii.setRole(Role.USER);
@@ -36,4 +36,5 @@ public class UserDemoData {
             List.of(ivan, andrii).forEach(userDao::create);
         };
     }
+
 }

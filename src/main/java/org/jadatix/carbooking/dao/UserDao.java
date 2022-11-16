@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Component
 public class UserDao extends AbstractDao<User> {
+
     private UserRepository repository;
 
     public UserDao(UserRepository repository) {
@@ -22,4 +23,5 @@ public class UserDao extends AbstractDao<User> {
     protected UserRepository getRepository() {
         return repository;
     }
+
 }

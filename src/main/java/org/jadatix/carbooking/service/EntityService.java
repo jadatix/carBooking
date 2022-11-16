@@ -5,6 +5,7 @@ import org.jadatix.carbooking.model.IdentifierEntity;
 import java.util.List;
 
 interface EntityService<T extends IdentifierEntity> {
+
     List<T> getAll();
 
     T get(Long id);
@@ -14,4 +15,5 @@ interface EntityService<T extends IdentifierEntity> {
     void delete(Long id);
 
     T update(Long id, T t);
+
 }

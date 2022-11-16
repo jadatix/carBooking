@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OfficeService extends AbstractService<Office> {
+
     private OfficeDao dao;
 
     public OfficeService(OfficeDao dao) {
@@ -17,4 +18,5 @@ public class OfficeService extends AbstractService<Office> {
     protected Dao<Office> getDao() {
         return dao;
     }
+
 }

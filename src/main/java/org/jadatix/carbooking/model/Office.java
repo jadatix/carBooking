@@ -7,6 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "office")
 public class Office implements IdentifierEntity {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -14,7 +15,6 @@ public class Office implements IdentifierEntity {
     @Column(nullable = false)
     private String city;
 
-    @Size(min = 1)
     @Column(nullable = false)
     private String street;
 
@@ -54,8 +54,10 @@ public class Office implements IdentifierEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Office)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Office))
+            return false;
         Office office = (Office) o;
         return this.getId().equals(office.getId());
     }

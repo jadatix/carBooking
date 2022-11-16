@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/users")
 public class UserController {
+
     private UserService userService;
 
     @Autowired
@@ -50,4 +51,5 @@ public class UserController {
         User updatedUser = userService.update(id, user);
         return ResponseEntity.ok().body(updatedUser);
     }
+
 }

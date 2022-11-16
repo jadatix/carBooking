@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 abstract class AbstractService<T extends IdentifierEntity> implements EntityService<T> {
+
     @Override
     public List<T> getAll() {
         return getDao().getAll();
@@ -20,7 +21,7 @@ abstract class AbstractService<T extends IdentifierEntity> implements EntityServ
 
     @Override
     public T create(T t) {
-       return getDao().create(t);
+        return getDao().create(t);
     }
 
     @Override
@@ -39,4 +40,5 @@ abstract class AbstractService<T extends IdentifierEntity> implements EntityServ
     }
 
     protected abstract Dao<T> getDao();
+
 }

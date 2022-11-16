@@ -13,6 +13,7 @@ import java.util.List;
 
 @Component
 public class OfficeDemoData {
+
     private static final Logger log = LoggerFactory.getLogger(OfficeDemoData.class);
 
     @Bean
@@ -20,7 +21,8 @@ public class OfficeDemoData {
 
         return args -> {
 
-            List<Office> offices = Arrays.asList(new Office("Chernivtsi", "Holovna"), new Office("Chernivtsi", "S. Bandery"));
+            List<Office> offices = Arrays.asList(new Office("Chernivtsi", "Holovna"),
+                    new Office("Chernivtsi", "S. Bandery"));
             offices.forEach(office -> {
                 log.info("Preloading {}", office);
                 officeDao.create(office);

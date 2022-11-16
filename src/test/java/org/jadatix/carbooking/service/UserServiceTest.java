@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class UserServiceTest extends AbstractServiceTest<User> {
+
     @Autowired
     private UserService service;
 
@@ -42,4 +43,5 @@ class UserServiceTest extends AbstractServiceTest<User> {
     protected UserService getService() {
         return service;
     }
+
 }

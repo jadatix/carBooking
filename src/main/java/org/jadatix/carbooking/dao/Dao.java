@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface Dao<T extends IdentifierEntity> {
+
     Optional<T> get(Long id);
 
     List<T> getAll();
@@ -15,4 +16,5 @@ public interface Dao<T extends IdentifierEntity> {
     T update(T t);
 
     void delete(Long id);
+
 }

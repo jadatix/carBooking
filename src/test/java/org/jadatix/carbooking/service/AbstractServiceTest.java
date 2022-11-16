@@ -9,8 +9,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 abstract class AbstractServiceTest<T extends IdentifierEntity> {
+
     private EntityService<T> service;
 
     public AbstractServiceTest() {
@@ -42,24 +42,23 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> {
         assertEntity(entity, actual);
     }
 
-   @Test
-   void delete() {
+    @Test
+    void delete() {
         T entity = generateEntity();
         service.create(entity);
         Long id = entity.getId();
         service.delete(id);
 
         assertNull(service.get(id));
-   }
+    }
 
-   @Test
-   void deleteNotExists() {
+    @Test
+    void deleteNotExists() {
         T entity = generateEntity();
         Long id = entity.getId();
         EntityService<T> service = getService();
         assertThrows(NotFoundException.class, () -> service.delete(id));
-   }
-
+    }
 
     @Test
     void update() {
@@ -92,4 +91,5 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> {
     protected abstract T generateEntity();
 
     protected abstract EntityService<T> getService();
+
 }

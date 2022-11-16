@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class OfficeServiceTest extends AbstractServiceTest<Office> {
+
     @Autowired
     private OfficeService service;
 
@@ -29,4 +30,5 @@ class OfficeServiceTest extends AbstractServiceTest<Office> {
     protected OfficeService getService() {
         return service;
     }
+
 }

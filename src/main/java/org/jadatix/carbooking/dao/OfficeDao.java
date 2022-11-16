@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OfficeDao extends AbstractDao<Office> {
+
     private OfficeRepository repository;
 
     public OfficeDao(OfficeRepository repository) {
@@ -16,4 +17,5 @@ public class OfficeDao extends AbstractDao<Office> {
     protected OfficeRepository getRepository() {
         return repository;
     }
+
 }

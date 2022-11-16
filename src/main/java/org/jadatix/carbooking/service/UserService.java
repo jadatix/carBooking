@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService extends AbstractService<User> {
+
     private UserDao dao;
 
     public UserService(UserDao dao) {
@@ -28,12 +29,13 @@ public class UserService extends AbstractService<User> {
         try {
             super.delete(id);
         } catch (RuntimeException ex) {
-           throw new UserNotFoundException();
+            throw new UserNotFoundException();
         }
     }
 
     @Override
     protected UserDao getDao() {
-       return dao;
+        return dao;
     }
+
 }
