@@ -14,8 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class BasicAuthWebSecurityConfiguration
-{
+public class BasicAuthWebSecurityConfiguration {
+
     private JpaUserDetailsService userDetailsService;
 
     @Autowired
@@ -27,9 +27,10 @@ public class BasicAuthWebSecurityConfiguration
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/offices").hasAnyRole(Role.USER.toString(),Role.MANAGER.toString())
+                .authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/offices")
+                .hasAnyRole(Role.USER.toString(), Role.MANAGER.toString())
                 .and()
-                .authorizeRequests().antMatchers("/api/v1/**","/h2_console/**").hasRole(Role.MANAGER.toString())
+                .authorizeRequests().antMatchers("/api/v1/**", "/h2_console/**").hasRole(Role.MANAGER.toString())
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
