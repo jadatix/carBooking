@@ -11,10 +11,10 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-@Configuration
+//@Configuration
 public class UserDemoData {
 
-    @Bean
+//    @Bean
     CommandLineRunner commandLineRunner(UserService userService) {
         return args -> {
             User ivan = new User();

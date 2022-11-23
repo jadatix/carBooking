@@ -23,5 +23,4 @@ public class UserDao extends AbstractDao<User> {
     protected UserRepository getRepository() {
         return repository;
     }
-
 }

@@ -17,12 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 abstract class AbstractServiceTest<T extends IdentifierEntity> {
 
-    private EntityService<T> service;
-
-    public AbstractServiceTest() {
-        this.service = getService();
-    }
-
     @BeforeEach
     public void logoutUser() {
         loginAs(Role.MANAGER);
@@ -45,15 +39,15 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> {
     @Test
     void getAll() {
         List<T> entities = List.of(generateEntity(), generateEntity());
-        entities.forEach(service::create);
-        entities.forEach(t -> assertEntity(t, service.get(t.getId())));
+        entities.forEach(getService()::create);
+        entities.forEach(t -> assertEntity(t, getService().get(t.getId())));
     }
 
     @Test
     void get() {
         T entity = generateEntity();
-        service.create(entity);
-        T actual = service.get(entity.getId());
+        getService().create(entity);
+        T actual = getService().get(entity.getId());
 
         assertNotNull(actual.getId());
     }
@@ -61,8 +55,8 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> {
     @Test
     void create() {
         T entity = generateEntity();
-        service.create(entity);
-        T actual = service.get(entity.getId());
+        getService().create(entity);
+        T actual = getService().get(entity.getId());
 
         assertEntity(entity, actual);
     }
@@ -70,35 +64,33 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> {
     @Test
     void delete() {
         T entity = generateEntity();
-        service.create(entity);
+        getService().create(entity);
         Long id = entity.getId();
-        service.delete(id);
+        getService().delete(id);
 
-        assertNull(service.get(id));
+        assertNull(getService().get(id));
     }
 
     @Test
     void deleteNotExists() {
-        T entity = generateEntity();
-        Long id = entity.getId();
         EntityService<T> service = getService();
-        assertThrows(NotFoundException.class, () -> service.delete(id));
+        assertThrows(NotFoundException.class, () -> service.delete(0L));
     }
 
     @Test
     void update() {
         T entity = generateEntity();
-        service.create(entity);
+        getService().create(entity);
 
         Long id = entity.getId();
 
         T newEntity = generateEntity();
         newEntity.setId(id);
 
-        service.update(id, newEntity);
+        getService().update(newEntity);
         T actual = getService().get(id);
 
-        assertEntity(entity, actual);
+        assertEntity(newEntity, actual);
     }
 
     protected abstract void assertEntity(T actualEntity, T expectedEntity);

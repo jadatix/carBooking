@@ -1,6 +1,8 @@
 package org.jadatix.carbooking.dao;
 
+import org.jadatix.carbooking.exception.AccessDeniedException;
 import org.jadatix.carbooking.model.IdentifierEntity;
+import org.jadatix.carbooking.service.AuthenticateUserService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +24,11 @@ abstract class AbstractDao<T extends IdentifierEntity> implements Dao<T> {
 
     @Override
     public T create(T t) {
-        return getRepository().save(t);
+        if (AuthenticateUserService.isManager()) {
+            return getRepository().save(t);
+        } else {
+            throw new AccessDeniedException();
+        }
     }
 
     @Override
