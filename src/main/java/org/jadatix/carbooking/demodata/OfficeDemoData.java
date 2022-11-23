@@ -11,12 +11,10 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
 public class OfficeDemoData {
 
     private static final Logger log = LoggerFactory.getLogger(OfficeDemoData.class);
 
-    @Bean
     CommandLineRunner initDatabase(OfficeDao officeDao) {
 
         return args -> {

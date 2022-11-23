@@ -15,14 +15,14 @@ public class UserBuilder {
     }
 
     private void init() {
-        Integer value = new SecureRandom().nextInt(1, 99999);
+        Integer value = new SecureRandom().nextInt(99999);
         user = new User();
         setEmail("Email_" + value + "@gmail.com");
         setFullName("FullName_" + value);
         setPassport("Passport_" + value);
         setSecret("Secret_" + value);
         setRole(Role.USER);
-        setBirthday(LocalDate.of(1991, value % 12, value % 28));
+        setBirthday(LocalDate.now().minusDays(value / 100));
     }
 
     public static UserBuilder builder() {

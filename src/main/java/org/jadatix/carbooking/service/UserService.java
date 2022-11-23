@@ -19,13 +19,9 @@ public class UserService extends AbstractService<User> {
 
     @Override
     public User create(User user) {
-        try {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setSecret(encoder.encode(user.getSecret()));
-            return super.create(user);
-        } catch (RuntimeException ex) {
-            throw new UserAlreadyExistsException();
-        }
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setSecret(encoder.encode(user.getSecret()));
+        return super.create(user);
     }
 
     @Override

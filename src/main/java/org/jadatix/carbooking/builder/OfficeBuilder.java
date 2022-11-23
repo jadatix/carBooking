@@ -12,7 +12,7 @@ public class OfficeBuilder {
     }
 
     private void init() {
-        Integer value = new SecureRandom().nextInt(1, 99999);
+        Integer value = new SecureRandom().nextInt();
         office = new Office();
         office.setCity("City_" + value);
         office.setStreet("Street_" + value);
