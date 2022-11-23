@@ -24,7 +24,6 @@ class UserServiceTest extends AbstractServiceTest<User> {
         assertEquals(actual.getPassport(), expected.getPassport());
         assertEquals(actual.getFullName(), expected.getFullName());
         assertEquals(actual.getEmail(), expected.getEmail());
-        assertEquals(actual.getSecret(), expected.getSecret());
         assertEquals(actual.getBirthday(), expected.getBirthday());
     }
 

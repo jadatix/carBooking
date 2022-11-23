@@ -14,6 +14,6 @@ interface EntityService<T extends IdentifierEntity> {
 
     void delete(Long id);
 
-    T update(Long id, T t);
+    T update(T t);
 
 }

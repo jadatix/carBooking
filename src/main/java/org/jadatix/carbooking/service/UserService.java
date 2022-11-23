@@ -26,11 +26,7 @@ public class UserService extends AbstractService<User> {
 
     @Override
     public void delete(Long id) {
-        try {
-            super.delete(id);
-        } catch (RuntimeException ex) {
-            throw new UserNotFoundException();
-        }
+       super.delete(id);
     }
 
     @Override
