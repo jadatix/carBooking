@@ -2,7 +2,6 @@ package org.jadatix.carbooking.builder;
 
 import java.security.SecureRandom;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import org.jadatix.carbooking.model.Role;
 import org.jadatix.carbooking.model.User;
