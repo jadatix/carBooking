@@ -24,14 +24,13 @@ public class OfficeController {
     @PostMapping
     public ResponseEntity<String> addOffice(@RequestBody Office office) {
         officeService.create(office);
-        return new ResponseEntity<>("Office has been added successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Office has been added successfully", HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Office>> getAllOffices() {
         List<Office> offices = officeService.getAll();
-        HttpStatus status = offices != null ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
-        return new ResponseEntity<>(offices, status);
+        return new ResponseEntity<>(offices, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -47,8 +46,9 @@ public class OfficeController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOfficeById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteOfficeById(@PathVariable Long id) {
         officeService.delete(id);
+        return new ResponseEntity<>("Office has been deleted successfully",HttpStatus.NO_CONTENT);
     }
 
 }

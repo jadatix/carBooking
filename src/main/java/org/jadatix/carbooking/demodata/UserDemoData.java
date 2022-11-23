@@ -1,8 +1,8 @@
 package org.jadatix.carbooking.demodata;
 
-import org.jadatix.carbooking.dao.UserDao;
 import org.jadatix.carbooking.model.Role;
 import org.jadatix.carbooking.model.User;
+import org.jadatix.carbooking.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +15,10 @@ import java.util.List;
 public class UserDemoData {
 
     @Bean
-    CommandLineRunner commandLineRunner(UserDao userDao) {
+    CommandLineRunner commandLineRunner(UserService userService) {
         return args -> {
             User ivan = new User();
-            ivan.setRole(Role.USER);
+            ivan.setRole(Role.MANAGER);
             ivan.setPassport("passport1");
             ivan.setFullName("Ivan Tkachuk");
             ivan.setEmail("tkachuk.ivan.v@chnu.edu.ua");
@@ -33,7 +33,7 @@ public class UserDemoData {
             andrii.setSecret("secret");
             andrii.setBirthday(LocalDate.of(2002, Month.DECEMBER, 8));
 
-            List.of(ivan, andrii).forEach(userDao::create);
+            List.of(ivan, andrii).forEach(userService::create);
         };
     }
 
