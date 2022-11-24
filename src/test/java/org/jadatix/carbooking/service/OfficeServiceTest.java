@@ -49,15 +49,9 @@ class OfficeServiceTest extends AbstractServiceTest<Office> {
     void testGetOfficeAsUserRole(){
         Office office = pushOfficeToDb();
         loginAs(Role.USER);
-        assertDoesNotThrow(()->service.get(office.getId()));
+        assertEquals(office,service.get(office.getId()));
     }
-
-    @Test
-    void testGetAllOfficesAsUserRole(){
-        loginAs(Role.USER);
-        assertDoesNotThrow(()-> service.getAll());
-    }
-
+    
     @Test
     void testUpdateOfficeAsUserRole(){
         Office newOffice = pushOfficeToDb();
