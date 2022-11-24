@@ -1,6 +1,7 @@
 package org.jadatix.carbooking.dao;
 
 import org.jadatix.carbooking.exception.AccessDeniedException;
+import org.jadatix.carbooking.exception.NotFoundException;
 import org.jadatix.carbooking.model.IdentifierEntity;
 import org.jadatix.carbooking.service.AuthenticateUserService;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,8 +38,7 @@ abstract class AbstractDao<T extends IdentifierEntity> implements Dao<T> {
 
     @Override
     public void delete(Long id) {
-        Optional<T> found = get(id);
-        found.ifPresent(getRepository()::delete);
+        getRepository().delete(get(id).orElseThrow(NotFoundException::new));
     }
 
     protected abstract JpaRepository<T, Long> getRepository();

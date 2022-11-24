@@ -25,11 +25,6 @@ public class UserService extends AbstractService<User> {
     }
 
     @Override
-    public void delete(Long id) {
-       super.delete(id);
-    }
-
-    @Override
     protected UserDao getDao() {
         return dao;
     }

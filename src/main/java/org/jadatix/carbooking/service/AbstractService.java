@@ -26,10 +26,6 @@ abstract class AbstractService<T extends IdentifierEntity> implements EntityServ
 
     @Override
     public void delete(Long id) {
-        Optional<T> found = getDao().get(id);
-        if (found.isEmpty()) {
-            throw new NotFoundException("Not found with id " + id);
-        }
         getDao().delete(id);
     }
 

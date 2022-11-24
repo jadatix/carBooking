@@ -8,9 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserServiceTest extends AbstractServiceTest<User> {
@@ -40,9 +38,23 @@ class UserServiceTest extends AbstractServiceTest<User> {
 
     @Test
     void testGetUserByUserRole() {
-
+        User user = loginAs(Role.USER);
+        user.setId(1L);
+        assertNull(service.get(user.getId()));
     }
 
+    @Test
+    void testGetUserByCurrentUser() {
+        User user = UserBuilder.builder().build();
+        User createdUser = service.create(user);
+
+        loginUser(createdUser);
+
+        Long id = createdUser.getId();
+        User expectedUser = service.get(id);
+
+        assertEquals(id, expectedUser.getId());
+    }
 
     @Test
     void testCreateUserByUserRole() {
@@ -69,14 +81,21 @@ class UserServiceTest extends AbstractServiceTest<User> {
 
     @Test
     void testDeleteUserByUserRole() {
-        User currentUser = loginAs(Role.USER);
-        currentUser.setId(1L);
-        assertThrows(AccessDeniedException.class, () -> service.delete(currentUser.getId() + 1));
+        User user = UserBuilder.builder().build();
+        User createdUser = service.create(user);
+
+        loginAs(Role.USER);
+
+        assertThrows(AccessDeniedException.class, () -> service.delete(createdUser.getId()));
     }
 
     @Test
     void testDeleteUserByCurrentUser() {
-        User currentUser = loginAs(Role.USER);
-        assertDoesNotThrow(() -> service.delete(currentUser.getId()));
+        User user = UserBuilder.builder().build();
+        User createdUser = service.create(user);
+
+        loginUser(createdUser);
+
+        assertDoesNotThrow(() -> service.delete(createdUser.getId()));
     }
 }
