@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @SpringBootTest
 class UserServiceTest extends AbstractServiceTest<User> {
@@ -42,5 +43,37 @@ class UserServiceTest extends AbstractServiceTest<User> {
         loginAs(Role.USER);
         User user = UserBuilder.builder().build();
         assertThrows(AccessDeniedException.class, () -> service.create(user));
+    }
+
+    @Test
+    void testCreteUserByManagerRole() {
+        User user = UserBuilder.builder().build();
+        assertDoesNotThrow(() -> service.create(user));
+    }
+
+    @Test
+    void testUpdateUserByUserRole() {
+        User user = loginAs(Role.USER);
+        user.setId(1L);
+        User newUser = UserBuilder.builder().setId(user.getId() + 1).build();
+        assertThrows(AccessDeniedException.class, () -> service.update(newUser));
+    }
+
+    @Test
+    void testUpdateUserByCurrentUser() {
+        User user = loginAs(Role.USER);
+        user.setId(1L);
+        User newUser = UserBuilder.builder().setId(user.getId()).build();
+        assertDoesNotThrow(() -> service.update(newUser));
+    }
+
+    @Test
+    void testUpdateUserByManagerRole() {
+        User user = UserBuilder.builder().build();
+        service.create(user);
+
+        User newUser = UserBuilder.builder().build();
+        newUser.setId(user.getId());
+        assertDoesNotThrow(() -> service.update(newUser));
     }
 }

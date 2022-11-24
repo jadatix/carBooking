@@ -26,9 +26,8 @@ abstract class AbstractDao<T extends IdentifierEntity> implements Dao<T> {
     public T create(T t) {
         if (AuthenticateUserService.isManager()) {
             return getRepository().save(t);
-        } else {
-            throw new AccessDeniedException();
         }
+        throw new AccessDeniedException();
     }
 
     @Override

@@ -4,7 +4,6 @@ import org.jadatix.carbooking.dao.Dao;
 import org.jadatix.carbooking.exception.NotFoundException;
 import org.jadatix.carbooking.model.IdentifierEntity;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
