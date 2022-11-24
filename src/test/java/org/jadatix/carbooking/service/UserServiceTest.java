@@ -39,6 +39,12 @@ class UserServiceTest extends AbstractServiceTest<User> {
     }
 
     @Test
+    void testGetUserByUserRole() {
+
+    }
+
+
+    @Test
     void testCreateUserByUserRole() {
         loginAs(Role.USER);
         User user = UserBuilder.builder().build();
@@ -46,34 +52,31 @@ class UserServiceTest extends AbstractServiceTest<User> {
     }
 
     @Test
-    void testCreteUserByManagerRole() {
-        User user = UserBuilder.builder().build();
-        assertDoesNotThrow(() -> service.create(user));
-    }
-
-    @Test
     void testUpdateUserByUserRole() {
-        User user = loginAs(Role.USER);
-        user.setId(1L);
-        User newUser = UserBuilder.builder().setId(user.getId() + 1).build();
-        assertThrows(AccessDeniedException.class, () -> service.update(newUser));
+        User currentUser = loginAs(Role.USER);
+        currentUser.setId(1L);
+        User user = UserBuilder.builder().setId(currentUser.getId() + 1).build();
+        assertThrows(AccessDeniedException.class, () -> service.update(user));
     }
 
     @Test
     void testUpdateUserByCurrentUser() {
-        User user = loginAs(Role.USER);
-        user.setId(1L);
-        User newUser = UserBuilder.builder().setId(user.getId()).build();
-        assertDoesNotThrow(() -> service.update(newUser));
+        User currentUser = loginAs(Role.USER);
+        currentUser.setId(1L);
+        User user = UserBuilder.builder().setId(currentUser.getId()).build();
+        assertDoesNotThrow(() -> service.update(user));
     }
 
     @Test
-    void testUpdateUserByManagerRole() {
-        User user = UserBuilder.builder().build();
-        service.create(user);
+    void testDeleteUserByUserRole() {
+        User currentUser = loginAs(Role.USER);
+        currentUser.setId(1L);
+        assertThrows(AccessDeniedException.class, () -> service.delete(currentUser.getId() + 1));
+    }
 
-        User newUser = UserBuilder.builder().build();
-        newUser.setId(user.getId());
-        assertDoesNotThrow(() -> service.update(newUser));
+    @Test
+    void testDeleteUserByCurrentUser() {
+        User currentUser = loginAs(Role.USER);
+        assertDoesNotThrow(() -> service.delete(currentUser.getId()));
     }
 }
