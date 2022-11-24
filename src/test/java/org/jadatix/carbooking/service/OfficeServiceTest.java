@@ -16,12 +16,10 @@ class OfficeServiceTest extends AbstractServiceTest<Office> {
     @Autowired
     private OfficeService service;
 
-    private void pushOfficeToDb(Long id){
-        loginAs(Role.MANAGER);
+    private Office pushOfficeToDb(){
         Office office = generateEntity();
-        office.setId(id);
         service.create(office);
-        logoutUser();
+        return office;
     }
 
     @Override
@@ -41,73 +39,37 @@ class OfficeServiceTest extends AbstractServiceTest<Office> {
     }
 
     @Test
-    void createAsManagerTest(){
-        loginAs(Role.MANAGER);
-        Office office = generateEntity();
-        assertDoesNotThrow(()->service.create(office));
-    }
-
-    @Test
-    void createAsUserTest(){
+    void testCreateOfficeAsUserRole(){
         loginAs(Role.USER);
         Office office = generateEntity();
         assertThrows(AccessDeniedException.class,()->service.create(office));
     }
 
     @Test
-    void getAsManagerTest(){
-        pushOfficeToDb(1L);
-        loginAs(Role.MANAGER);
-        assertDoesNotThrow(()->service.get(1L));
-    }
-
-    @Test
-    void getAsUserTest(){
-        pushOfficeToDb(1L);
+    void testGetOfficeAsUserRole(){
+        Office office = pushOfficeToDb();
         loginAs(Role.USER);
-        assertDoesNotThrow(()->service.get(1L));
+        assertDoesNotThrow(()->service.get(office.getId()));
     }
 
     @Test
-    void getAllAsManagerTest(){
-        loginAs(Role.MANAGER);
-        assertDoesNotThrow(()-> service.getAll());
-    }
-
-    @Test
-    void getAllAsUserTest(){
+    void testGetAllOfficesAsUserRole(){
         loginAs(Role.USER);
         assertDoesNotThrow(()-> service.getAll());
     }
 
     @Test
-    void updateAsManagerTest(){
-        loginAs(Role.MANAGER);
-        pushOfficeToDb(1L);
-        Office newOffice = generateEntity();
-        newOffice.setId(1L);
-        assertDoesNotThrow(()->service.update(newOffice));
-    }
-
-    @Test
-    void updateAsUserTest(){
+    void testUpdateOfficeAsUserRole(){
+        Office newOffice = pushOfficeToDb();
         loginAs(Role.USER);
-        Office newOffice = generateEntity();
-        newOffice.setId(1L);
+        newOffice.setCity("Lviv");
         assertThrows(AccessDeniedException.class, ()->service.update(newOffice));
     }
 
     @Test
-    void deleteAsManagerTest(){
-        pushOfficeToDb(1L);
-        loginAs(Role.MANAGER);
-        assertDoesNotThrow(()->service.delete(1L));
-    }
-
-    @Test
-    void deleteAsUserTest(){
-        pushOfficeToDb(1L);
+    void testDeleteOfficeAsUserRole(){
+        Office office = pushOfficeToDb();
         loginAs(Role.USER);
-        assertThrows(AccessDeniedException.class, ()->service.delete(1L));
+        assertThrows(AccessDeniedException.class, ()->service.delete(office.getId()));
     }
 }
