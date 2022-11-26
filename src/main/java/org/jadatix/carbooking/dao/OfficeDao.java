@@ -5,7 +5,7 @@ import org.jadatix.carbooking.repository.OfficeRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OfficeDao extends AbstractDao<Office> {
+public class OfficeDao implements Dao<Office> {
 
     private OfficeRepository repository;
 
@@ -14,7 +14,7 @@ public class OfficeDao extends AbstractDao<Office> {
     }
 
     @Override
-    protected OfficeRepository getRepository() {
+    public OfficeRepository getRepository() {
         return repository;
     }
 

@@ -1,19 +1,33 @@
 package org.jadatix.carbooking.service;
 
+import org.jadatix.carbooking.dao.Dao;
 import org.jadatix.carbooking.model.IdentifierEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 interface EntityService<T extends IdentifierEntity> {
 
-    List<T> getAll();
+    default List<T> getAll() {
+        return getDao().getAll();
+    }
 
-    T get(Long id);
+    default T get(Long id) {
+        return getDao().get(id);
+    }
 
-    T create(T t);
+    default T create(T entity) {
+        return getDao().create(entity);
+    }
 
-    void delete(Long id);
+    default void delete(Long id) {
+        getDao().delete(id);
+    }
 
-    T update(T t);
+    default T update(T entity) {
+        return getDao().update(entity);
+    }
+
+    Dao<T> getDao();
 
 }

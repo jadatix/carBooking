@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class UserDao extends AbstractDao<User> {
+public class UserDao implements Dao<User> {
 
     private UserRepository repository;
 
@@ -20,7 +20,8 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected UserRepository getRepository() {
+    public UserRepository getRepository() {
         return repository;
     }
+
 }

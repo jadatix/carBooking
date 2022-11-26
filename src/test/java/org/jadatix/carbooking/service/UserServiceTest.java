@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-class UserServiceTest extends AbstractServiceTest<User> {
+class UserServiceTest implements ServiceTest<User> {
 
     @Autowired
     private UserService service;
 
     @Override
-    protected void assertEntity(User actual, User expected) {
+    public void assertEntity(User actual, User expected) {
         assertEquals(actual.getId(), expected.getId());
         assertEquals(actual.getRole(), expected.getRole());
         assertEquals(actual.getPassport(), expected.getPassport());
@@ -28,19 +28,13 @@ class UserServiceTest extends AbstractServiceTest<User> {
     }
 
     @Override
-    protected User generateEntity() {
+    public User generateEntity() {
         return UserBuilder.builder().build();
     }
 
     @Override
-    protected UserService getService() {
+    public UserService getService() {
         return service;
     }
 
-    @Test
-    void testCreateUserByUserRole() {
-        loginAs(Role.USER);
-        User user = UserBuilder.builder().build();
-        assertThrows(AccessDeniedException.class, () -> service.create(user));
-    }
 }

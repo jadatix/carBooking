@@ -8,24 +8,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class OfficeServiceTest extends AbstractServiceTest<Office> {
+class OfficeServiceTest implements ServiceTest<Office> {
 
     @Autowired
     private OfficeService service;
 
     @Override
-    protected void assertEntity(Office actual, Office expected) {
+    public void assertEntity(Office actual, Office expected) {
         assertEquals(expected.getCity(), actual.getCity());
         assertEquals(expected.getStreet(), actual.getStreet());
     }
 
     @Override
-    protected Office generateEntity() {
+    public Office generateEntity() {
         return OfficeBuilder.builder().build();
     }
 
     @Override
-    protected OfficeService getService() {
+    public OfficeService getService() {
         return service;
     }
 

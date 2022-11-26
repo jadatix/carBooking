@@ -6,7 +6,7 @@ import org.jadatix.carbooking.model.Office;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OfficeService extends AbstractService<Office> {
+public class OfficeService implements EntityService<Office> {
 
     private OfficeDao dao;
 
@@ -15,7 +15,7 @@ public class OfficeService extends AbstractService<Office> {
     }
 
     @Override
-    protected Dao<Office> getDao() {
+    public OfficeDao getDao() {
         return dao;
     }
 

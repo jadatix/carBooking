@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService extends AbstractService<User> {
+public class UserService implements EntityService<User> {
 
     private UserDao dao;
 
@@ -21,16 +21,11 @@ public class UserService extends AbstractService<User> {
     public User create(User user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setSecret(encoder.encode(user.getSecret()));
-        return super.create(user);
+        return EntityService.super.create(user);
     }
 
     @Override
-    public void delete(Long id) {
-       super.delete(id);
-    }
-
-    @Override
-    protected UserDao getDao() {
+    public UserDao getDao() {
         return dao;
     }
 
