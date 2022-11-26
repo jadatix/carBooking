@@ -5,7 +5,7 @@ import org.jadatix.carbooking.model.IdentifierEntity;
 
 import java.util.List;
 
-interface ServiceEntity<T extends IdentifierEntity> {
+public interface ServiceEntity<T extends IdentifierEntity> {
     default List<T> getAll() {
         return getDao().getAll();
     }

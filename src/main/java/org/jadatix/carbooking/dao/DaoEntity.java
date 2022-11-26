@@ -19,7 +19,7 @@ public interface DaoEntity<T extends IdentifierEntity> {
     }
 
     default List<T> getAll() {
-        return getRepository().findAll();
+        return getImmutableList();
     }
 
     default T create(T entity) {
@@ -55,5 +55,21 @@ public interface DaoEntity<T extends IdentifierEntity> {
             return getRepository().findById(id);
         }
         return Optional.empty();
+    }
+
+    default List<T> getImmutableList() {
+        if (isManager()) {
+            return getRepository().findAll();
+        }
+        return List.of();
+    }
+
+    default Specification<T> getSpecification(String fieldName, Object value, SpecificationOperator operator) {
+        return (root, query, cb) -> {
+            if (SpecificationOperator.EQUALS.equals(operator)) {
+                return cb.equal(root.get(fieldName), value);
+            }
+            return null;
+        };
     }
 }
