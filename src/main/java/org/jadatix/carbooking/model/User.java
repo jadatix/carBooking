@@ -7,7 +7,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 public class User implements IdentifierEntity {
-
     @Id
     @GeneratedValue
     private Long id;
@@ -105,5 +104,4 @@ public class User implements IdentifierEntity {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }

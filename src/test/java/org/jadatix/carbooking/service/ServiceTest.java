@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.io.Serializable;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -126,10 +125,15 @@ interface ServiceTest<T extends IdentifierEntity> {
         return entity;
     }
 
+    default T pushToDB(T entity) {
+        getService().create(entity);
+        return entity;
+    }
+
     void assertEntity(T actual, T expected);
 
     T generateEntity();
 
-    EntityService<T> getService();
+    ServiceEntity<T> getService();
 
 }

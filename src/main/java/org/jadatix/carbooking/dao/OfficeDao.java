@@ -2,11 +2,14 @@ package org.jadatix.carbooking.dao;
 
 import org.jadatix.carbooking.model.Office;
 import org.jadatix.carbooking.repository.OfficeRepository;
+import org.jadatix.carbooking.utility.SpecificationFactory;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
-@Component
-public class OfficeDao implements Dao<Office> {
+import java.util.Optional;
 
+@Component
+public class OfficeDao implements DaoEntity<Office> {
     private OfficeRepository repository;
 
     public OfficeDao(OfficeRepository repository) {
@@ -18,4 +21,8 @@ public class OfficeDao implements Dao<Office> {
         return repository;
     }
 
+    @Override
+    public Optional<Office> getImmutable(Long id) {
+        return getRepository().findById(id);
+    }
 }

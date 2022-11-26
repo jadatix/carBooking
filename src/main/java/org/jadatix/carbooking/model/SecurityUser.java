@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class SecurityUser implements UserDetails {
-
     private User user;
 
     public SecurityUser(User user) {
@@ -17,6 +16,10 @@ public class SecurityUser implements UserDetails {
 
     public Role getRole() {
         return user.getRole();
+    }
+
+    public Long getId() {
+        return user.getId();
     }
 
     @Override

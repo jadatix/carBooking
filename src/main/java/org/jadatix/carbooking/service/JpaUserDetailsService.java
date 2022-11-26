@@ -1,7 +1,7 @@
 package org.jadatix.carbooking.service;
 
 import org.jadatix.carbooking.dao.UserDao;
-import org.jadatix.carbooking.exception.UserNotFoundException;
+import org.jadatix.carbooking.exception.NotFoundException;
 import org.jadatix.carbooking.model.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
-
     private UserDao userDao;
 
     @Autowired
@@ -27,7 +26,7 @@ public class JpaUserDetailsService implements UserDetailsService {
      * Here email is used instead of Username
      * 
      * @param email an email
-     * @return user casted to SecurityUser which implements UserDetails interface
+     * @return user cast to SecurityUser which implements UserDetails interface
      * @throws UsernameNotFoundException
      */
     @Override
@@ -35,6 +34,6 @@ public class JpaUserDetailsService implements UserDetailsService {
         return userDao
                 .findByEmail(email)
                 .map(SecurityUser::new)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(NotFoundException::new);
     }
 }

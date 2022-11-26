@@ -15,7 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class BasicAuthWebSecurityConfiguration {
-
     private JpaUserDetailsService userDetailsService;
 
     @Autowired
@@ -50,5 +49,4 @@ public class BasicAuthWebSecurityConfiguration {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

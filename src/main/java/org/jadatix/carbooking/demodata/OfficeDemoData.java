@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class OfficeDemoData {
-
     private static final Logger log = LoggerFactory.getLogger(OfficeDemoData.class);
 
     CommandLineRunner initDatabase(OfficeDao officeDao) {
@@ -27,5 +26,4 @@ public class OfficeDemoData {
             });
         };
     }
-
 }

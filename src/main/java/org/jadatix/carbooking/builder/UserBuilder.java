@@ -7,7 +7,6 @@ import org.jadatix.carbooking.model.Role;
 import org.jadatix.carbooking.model.User;
 
 public class UserBuilder {
-
     private User user;
 
     public UserBuilder() {

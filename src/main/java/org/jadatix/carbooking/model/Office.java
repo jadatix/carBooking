@@ -11,7 +11,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "office")
 public class Office implements IdentifierEntity {
-
     @Id
     @GeneratedValue
     private Long id;
@@ -70,5 +69,4 @@ public class Office implements IdentifierEntity {
     public int hashCode() {
         return Objects.hash(getId());
     }
-
 }

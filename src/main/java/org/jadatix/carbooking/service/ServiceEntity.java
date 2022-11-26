@@ -1,13 +1,11 @@
 package org.jadatix.carbooking.service;
 
-import org.jadatix.carbooking.dao.Dao;
+import org.jadatix.carbooking.dao.DaoEntity;
 import org.jadatix.carbooking.model.IdentifierEntity;
 
-import java.io.Serializable;
 import java.util.List;
 
-interface EntityService<T extends IdentifierEntity> {
-
+interface ServiceEntity<T extends IdentifierEntity> {
     default List<T> getAll() {
         return getDao().getAll();
     }
@@ -28,6 +26,5 @@ interface EntityService<T extends IdentifierEntity> {
         return getDao().update(entity);
     }
 
-    Dao<T> getDao();
-
+    DaoEntity<T> getDao();
 }

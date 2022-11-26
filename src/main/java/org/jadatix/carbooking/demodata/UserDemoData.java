@@ -11,10 +11,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-//@Configuration
 public class UserDemoData {
-
-//    @Bean
     CommandLineRunner commandLineRunner(UserService userService) {
         return args -> {
             User ivan = new User();
@@ -36,5 +33,4 @@ public class UserDemoData {
             List.of(ivan, andrii).forEach(userService::create);
         };
     }
-
 }

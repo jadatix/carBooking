@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AuthenticateUserService {
-
     public static SecurityUser getCurrent() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -34,5 +33,4 @@ public class AuthenticateUserService {
     public static boolean isUser() {
         return !isManager();
     }
-
 }

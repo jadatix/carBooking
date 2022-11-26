@@ -3,26 +3,24 @@ package org.jadatix.carbooking.dao;
 import org.jadatix.carbooking.exception.AccessDeniedException;
 import org.jadatix.carbooking.exception.NotFoundException;
 import org.jadatix.carbooking.model.IdentifierEntity;
-import org.jadatix.carbooking.service.AuthenticateUserService;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.jadatix.carbooking.repository.SpecificationRepository;
+import org.jadatix.carbooking.utility.SpecificationFactory;
+import org.springframework.data.jpa.domain.Specification;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 import static org.jadatix.carbooking.service.AuthenticateUserService.isManager;
+import static org.jadatix.carbooking.utility.SpecificationFactory.Operator.EQUALS;
 
-public interface Dao<T extends IdentifierEntity> {
-
+public interface DaoEntity<T extends IdentifierEntity> {
     default T get(Long id) {
-        return getRepository().findById(id).orElse(null);
+        return getImmutable(id).orElse(null);
     }
-
 
     default List<T> getAll() {
         return getRepository().findAll();
     }
-
 
     default T create(T entity) {
         if (isManager()) {
@@ -40,14 +38,22 @@ public interface Dao<T extends IdentifierEntity> {
 
 
     default void delete(Long id) {
-        if (isManager()) {
-            Optional<T> found = Optional.ofNullable(get(id));
-            getRepository().delete(found.orElseThrow(NotFoundException::new));
-        } else {
-            throw new AccessDeniedException();
-        }
+        getRepository().delete(getMutable(id).orElseThrow(NotFoundException::new));
     }
 
-    JpaRepository<T, Long> getRepository();
+    SpecificationRepository<T> getRepository();
 
+    default Optional<T> getMutable(Long id) {
+        if (isManager()) {
+            return getRepository().findById(id);
+        }
+        throw new AccessDeniedException();
+    }
+
+    default Optional<T> getImmutable(Long id) {
+        if (isManager()) {
+            return getRepository().findById(id);
+        }
+        return Optional.empty();
+    }
 }
