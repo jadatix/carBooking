@@ -1,6 +1,5 @@
 package org.jadatix.carbooking.model;
 
-import java.io.Serializable;
 
 public interface IdentifierEntity {
     Long getId();

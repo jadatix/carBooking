@@ -4,14 +4,12 @@ import org.jadatix.carbooking.exception.AccessDeniedException;
 import org.jadatix.carbooking.exception.NotFoundException;
 import org.jadatix.carbooking.model.IdentifierEntity;
 import org.jadatix.carbooking.repository.SpecificationRepository;
-import org.jadatix.carbooking.utility.SpecificationFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.jadatix.carbooking.service.AuthenticateUserService.isManager;
-import static org.jadatix.carbooking.utility.SpecificationFactory.Operator.EQUALS;
 
 public interface DaoEntity<T extends IdentifierEntity> {
     default T get(Long id) {
@@ -35,7 +33,6 @@ public interface DaoEntity<T extends IdentifierEntity> {
         }
         throw new AccessDeniedException();
     }
-
 
     default void delete(Long id) {
         getRepository().delete(getMutable(id).orElseThrow(NotFoundException::new));

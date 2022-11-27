@@ -2,8 +2,6 @@ package org.jadatix.carbooking.api.v1;
 
 import org.jadatix.carbooking.model.IdentifierEntity;
 import org.jadatix.carbooking.service.ServiceEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
