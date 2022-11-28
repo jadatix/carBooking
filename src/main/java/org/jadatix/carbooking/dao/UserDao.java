@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
-import static org.jadatix.carbooking.dao.SpecificationOperator.EQUALS;
 import static org.jadatix.carbooking.service.AuthenticateUserService.getCurrent;
 import static org.jadatix.carbooking.service.AuthenticateUserService.isManager;
 
@@ -43,7 +42,7 @@ public class UserDao implements DaoEntity<User> {
     public Optional<User> getMutable(Long id) {
         SecurityUser currentUser = getCurrent();
         if (id.equals(currentUser.getId())) {
-            return getRepository().findOne(getSpecification("id", currentUser.getId(), EQUALS));
+            return getRepository().findOne(getSpecification("id", currentUser.getId(), SpecificationOperator.EQUALS));
         }
         return DaoEntity.super.getMutable(id);
     }
@@ -52,9 +51,9 @@ public class UserDao implements DaoEntity<User> {
     public Optional<User> getImmutable(Long id) {
         if (!isManager()) {
             return getRepository()
-                    .findOne(getSpecification("id", getCurrent().getId(), EQUALS)
-                            .or(getSpecification("role", Role.MANAGER, EQUALS)
-                                    .and(getSpecification("id", id, EQUALS))));
+                    .findOne(getSpecification("id", getCurrent().getId(), SpecificationOperator.EQUALS)
+                            .or(getSpecification("role", Role.MANAGER, SpecificationOperator.EQUALS)
+                                    .and(getSpecification("id", id, SpecificationOperator.EQUALS))));
         }
         return DaoEntity.super.getImmutable(id);
     }
@@ -62,8 +61,8 @@ public class UserDao implements DaoEntity<User> {
     @Override
     public List<User> getImmutableList() {
         if (!isManager()) {
-            return getRepository().findAll(getSpecification("id", getCurrent().getId(), EQUALS)
-                    .or(getSpecification("role", Role.MANAGER, EQUALS)));
+            return getRepository().findAll(getSpecification("id", getCurrent().getId(), SpecificationOperator.EQUALS)
+                    .or(getSpecification("role", Role.MANAGER, SpecificationOperator.EQUALS)));
         }
         return DaoEntity.super.getImmutableList();
     }

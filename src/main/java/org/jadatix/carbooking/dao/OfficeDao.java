@@ -2,8 +2,6 @@ package org.jadatix.carbooking.dao;
 
 import org.jadatix.carbooking.model.Office;
 import org.jadatix.carbooking.repository.OfficeRepository;
-import org.jadatix.carbooking.utility.SpecificationFactory;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
