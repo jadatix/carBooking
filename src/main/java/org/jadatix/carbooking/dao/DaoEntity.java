@@ -12,6 +12,10 @@ import java.util.Optional;
 import static org.jadatix.carbooking.service.AuthenticateUserService.isManager;
 
 public interface DaoEntity<T extends IdentifierEntity> {
+    enum SpecificationOperator {
+        EQUALS
+    }
+
     default T get(Long id) {
         return getImmutable(id).orElse(null);
     }

@@ -1,8 +1,14 @@
 package org.jadatix.carbooking.model;
 
-import javax.persistence.*;
+import static java.util.Objects.hash;
+
 import java.time.LocalDate;
-import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
@@ -34,7 +40,7 @@ public class User implements IdentifierEntity {
 
     @Override
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     @Override
@@ -43,7 +49,7 @@ public class User implements IdentifierEntity {
     }
 
     public Role getRole() {
-        return role;
+        return this.role;
     }
 
     public void setRole(Role role) {
@@ -51,7 +57,7 @@ public class User implements IdentifierEntity {
     }
 
     public String getPassport() {
-        return passport;
+        return this.passport;
     }
 
     public void setPassport(String passport) {
@@ -59,7 +65,7 @@ public class User implements IdentifierEntity {
     }
 
     public String getFullName() {
-        return fullName;
+        return this.fullName;
     }
 
     public void setFullName(String fullName) {
@@ -67,7 +73,7 @@ public class User implements IdentifierEntity {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -75,7 +81,7 @@ public class User implements IdentifierEntity {
     }
 
     public String getSecret() {
-        return secret;
+        return this.secret;
     }
 
     public void setSecret(String secret) {
@@ -83,7 +89,7 @@ public class User implements IdentifierEntity {
     }
 
     public LocalDate getBirthday() {
-        return birthday;
+        return this.birthday;
     }
 
     public void setBirthday(LocalDate birthday) {
@@ -97,11 +103,11 @@ public class User implements IdentifierEntity {
         if (!(o instanceof User))
             return false;
         User user = (User) o;
-        return id.equals(user.id);
+        return this.id.equals(user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return hash(id);
     }
 }

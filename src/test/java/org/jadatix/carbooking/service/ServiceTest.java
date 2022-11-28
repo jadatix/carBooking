@@ -12,9 +12,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 interface ServiceTest<T extends IdentifierEntity> {
 
@@ -97,6 +100,7 @@ interface ServiceTest<T extends IdentifierEntity> {
     default void testGetAsUserRole() {
         T entity = pushToDB();
         loginAs(Role.USER);
+
         assertEquals(entity, getService().get(entity.getId()));
     }
 
@@ -117,7 +121,6 @@ interface ServiceTest<T extends IdentifierEntity> {
         loginAs(Role.USER);
         assertThrows(AccessDeniedException.class, () -> getService().delete(entity.getId()));
     }
-
 
     default T pushToDB() {
         T entity = generateEntity();

@@ -1,12 +1,12 @@
 package org.jadatix.carbooking.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Column;
 
-import java.util.Objects;
+import static java.util.Objects.hash;
 
 @Entity
 @Table(name = "office")
@@ -67,6 +67,6 @@ public class Office implements IdentifierEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return hash(getId());
     }
 }
