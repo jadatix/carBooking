@@ -26,18 +26,10 @@ public class BasicAuthWebSecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .headers().frameOptions().sameOrigin()
+                .and()
                 .csrf().disable()
-                .authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/offices")
-                .hasAnyRole(Role.USER.toString(), Role.MANAGER.toString())
-                .and()
-                .authorizeRequests().antMatchers("/api/v1/**", "/h2_console/**").hasRole(Role.MANAGER.toString())
-                .and()
-                .authorizeRequests().anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .usernameParameter("email")
-                .and()
-                .logout()
+                .authorizeRequests().antMatchers("/h2_console/**").hasRole(Role.MANAGER.toString())
                 .and()
                 .httpBasic()
                 .and()
