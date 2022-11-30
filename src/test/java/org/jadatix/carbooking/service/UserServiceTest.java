@@ -1,7 +1,9 @@
 package org.jadatix.carbooking.service;
 
+import org.hibernate.annotations.NotFound;
 import org.jadatix.carbooking.builder.UserBuilder;
 import org.jadatix.carbooking.exception.AccessDeniedException;
+import org.jadatix.carbooking.exception.NotFoundException;
 import org.jadatix.carbooking.model.Role;
 import org.jadatix.carbooking.model.User;
 import org.junit.jupiter.api.Test;
@@ -39,8 +41,7 @@ class UserServiceTest extends AbstractServiceTest<User> {
     @Test
     void testGetUserByUserRole() {
         User user = loginAs(Role.USER);
-        user.setId(1L);
-        assertNull(service.get(user.getId()));
+        assertNull(service.get(0L));
     }
 
     @Test
@@ -57,6 +58,37 @@ class UserServiceTest extends AbstractServiceTest<User> {
     }
 
     @Test
+    void testGetManagerByUserRole() {
+        User user = UserBuilder.builder().setRole(Role.MANAGER).build();
+        service.create(user);
+
+        loginAs(Role.USER);
+
+        assertEquals(user, service.get(user.getId()));
+    }
+
+
+    @Test
+    void testGetAllUserByUserRole() {
+        User user = UserBuilder.builder().build();
+        service.create(user);
+
+        loginAs(Role.USER);
+
+        assertFalse(service.getAll().contains(user));
+    }
+
+    @Test
+    void testGetAllManagerByUserRole() {
+        User user = UserBuilder.builder().setRole(Role.MANAGER).build();
+        service.create(user);
+
+        loginAs(Role.USER);
+
+        assertTrue(service.getAll().contains(user));
+    }
+
+    @Test
     void testCreateUserByUserRole() {
         loginAs(Role.USER);
         User user = UserBuilder.builder().build();
@@ -68,7 +100,7 @@ class UserServiceTest extends AbstractServiceTest<User> {
         User currentUser = loginAs(Role.USER);
         currentUser.setId(1L);
         User user = UserBuilder.builder().setId(currentUser.getId() + 1).build();
-        assertThrows(AccessDeniedException.class, () -> service.update(user));
+        assertThrows(NotFoundException.class, () -> service.update(user));
     }
 
     @Test
@@ -86,7 +118,7 @@ class UserServiceTest extends AbstractServiceTest<User> {
 
         loginAs(Role.USER);
 
-        assertThrows(AccessDeniedException.class, () -> service.delete(createdUser.getId()));
+        assertThrows(NotFoundException.class, () -> service.delete(createdUser.getId()));
     }
 
     @Test
