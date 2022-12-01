@@ -16,5 +16,4 @@ public interface Dao<T extends IdentifierEntity> {
     T update(T t);
 
     void delete(Long id);
-
 }

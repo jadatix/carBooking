@@ -1,8 +1,6 @@
 package org.jadatix.carbooking.service;
 
 import org.jadatix.carbooking.dao.UserDao;
-import org.jadatix.carbooking.exception.UserAlreadyExistsException;
-import org.jadatix.carbooking.exception.UserNotFoundException;
 import org.jadatix.carbooking.model.User;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,10 +22,8 @@ public class UserService extends AbstractService<User> {
         return super.create(user);
     }
 
-    @Override
-    public void delete(Long id) {
-       super.delete(id);
-    }
+
+
 
     @Override
     protected UserDao getDao() {
