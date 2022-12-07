@@ -1,21 +1,32 @@
 package org.jadatix.carbooking.demodata;
 
+import org.jadatix.carbooking.builder.UserBuilder;
 import org.jadatix.carbooking.model.Role;
+import org.jadatix.carbooking.model.SecurityUser;
 import org.jadatix.carbooking.model.User;
 import org.jadatix.carbooking.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-//@Configuration
+@Configuration
 public class UserDemoData {
 
-//    @Bean
+    @Bean
     CommandLineRunner commandLineRunner(UserService userService) {
+        SecurityContextHolder.clearContext();
+        var user = UserBuilder.builder().build();
+        user.setRole(Role.MANAGER);
+        SecurityUser securityUser = new SecurityUser(user);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(securityUser,
+                securityUser.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(token);
         return args -> {
             User ivan = new User();
             ivan.setRole(Role.MANAGER);

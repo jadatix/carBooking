@@ -18,6 +18,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 abstract class AbstractServiceTest<T extends IdentifierEntity> extends AuthRequireable {
 
+    protected T pushEntityToDb(){
+        T t = generateEntity();
+        getService().create(t);
+        return t;
+    }
 
     @Test
     void getAll() {

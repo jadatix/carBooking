@@ -16,11 +16,6 @@ class OfficeServiceTest extends AbstractServiceTest<Office> {
     @Autowired
     private OfficeService service;
 
-    private Office pushOfficeToDb(){
-        Office office = generateEntity();
-        service.create(office);
-        return office;
-    }
 
     @Override
     protected void assertEntity(Office actual, Office expected) {
@@ -47,14 +42,14 @@ class OfficeServiceTest extends AbstractServiceTest<Office> {
 
     @Test
     void testGetOfficeAsUserRole(){
-        Office office = pushOfficeToDb();
+        Office office = pushEntityToDb();
         loginAs(Role.USER);
         assertEquals(office,service.get(office.getId()));
     }
 
     @Test
     void testUpdateOfficeAsUserRole(){
-        Office newOffice = pushOfficeToDb();
+        Office newOffice = pushEntityToDb();
         loginAs(Role.USER);
         newOffice.setCity("Lviv");
         assertThrows(AccessDeniedException.class, ()->service.update(newOffice));
@@ -62,7 +57,7 @@ class OfficeServiceTest extends AbstractServiceTest<Office> {
 
     @Test
     void testDeleteOfficeAsUserRole(){
-        Office office = pushOfficeToDb();
+        Office office = pushEntityToDb();
         loginAs(Role.USER);
         assertThrows(AccessDeniedException.class, ()->service.delete(office.getId()));
     }
