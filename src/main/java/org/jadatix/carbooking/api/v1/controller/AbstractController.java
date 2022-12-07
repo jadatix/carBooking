@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
+import static java.util.Objects.isNull;
 import java.util.stream.Collectors;
 
-public abstract class AbstractController<T extends IdentifierEntity, Req extends AbstractRequest<T>, Res extends AbstractResponse> {
+import javax.websocket.server.PathParam;
 
-    public static final Integer DEFAULT_PAGE_SIZE = 25;
-    public static final Integer DEFAULT_PAGE_INDEX = 0;
+public abstract class AbstractController<T extends IdentifierEntity, Req extends AbstractRequest<T>, Res extends AbstractResponse> {
 
     protected abstract AbstractService<T> getService();
 
@@ -25,12 +28,12 @@ public abstract class AbstractController<T extends IdentifierEntity, Req extends
 
     @GetMapping
     public ResponseEntity<PageResponse<Res>> getAll(
-            @RequestParam(value = "index") Optional<Integer> index,
-            @RequestParam(value = "size") Optional<Integer> size) {
-        Integer pageIndex = index.orElse(DEFAULT_PAGE_INDEX);
-        Integer pageSize = size.orElse(DEFAULT_PAGE_SIZE);
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "10") Integer size,
+            @PathParam(value = "sort") Sort sort) {
+        sort = mapSortPropertities(sort);
 
-        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        Pageable pageable = PageRequest.of(index, size, sort);
 
         Page<T> pagedEntities = getService().get(pageable);
 
@@ -42,7 +45,25 @@ public abstract class AbstractController<T extends IdentifierEntity, Req extends
                 pagedEntities.getTotalElements(), pagedEntities.getNumber(), pagedEntities.getSize());
 
         return ResponseEntity.ok(response);
+    }
 
+    protected Sort mapSortPropertities(Sort sort) {
+        if (isNull(sort)) {
+            return Sort.unsorted();
+        }
+
+        Iterator<Order> iterator = sort.iterator();
+        List<Order> mappedOrders = new LinkedList<>();
+        while (iterator.hasNext()) {
+            Order order = iterator.next();
+            Order mappedOrder = new Order(
+                    order.getDirection(),
+                    order.getProperty(),
+                    order.getNullHandling());
+            mappedOrders.add(mappedOrder);
+        }
+
+        return Sort.by(mappedOrders);
     }
 
     @GetMapping("/{id}")
