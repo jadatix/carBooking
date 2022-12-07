@@ -7,7 +7,7 @@ import org.jadatix.carbooking.model.IdentifierEntity;
 import java.util.List;
 import java.util.Optional;
 
-abstract class AbstractService<T extends IdentifierEntity> implements EntityService<T> {
+public abstract class AbstractService<T extends IdentifierEntity> implements EntityService<T> {
 
     @Override
     public List<T> getAll() {
