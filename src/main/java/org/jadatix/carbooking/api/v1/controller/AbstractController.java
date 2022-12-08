@@ -4,6 +4,7 @@ import org.jadatix.carbooking.api.v1.request.AbstractRequest;
 import org.jadatix.carbooking.api.v1.response.AbstractResponse;
 import org.jadatix.carbooking.model.IdentifierEntity;
 import org.jadatix.carbooking.service.AbstractService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,8 @@ public abstract class AbstractController<T extends IdentifierEntity, Req extends
     }
 
     @DeleteMapping("/{id}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id){
         getService().delete(id);
     }
