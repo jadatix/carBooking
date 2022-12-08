@@ -81,7 +81,7 @@ public abstract class AbstractController<T extends IdentifierEntity, Req extends
     @PutMapping("/{id}")
     public ResponseEntity<Res> update(@PathVariable Long id, @RequestBody Req body) {
         T old = getService().get(id);
-        T t = getService().update(body.update(body.update(old)));
+        T t = getService().update(body.update(old));
         return ResponseEntity.ok(toResponse(t));
     }
 
