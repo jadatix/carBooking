@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1/offices")
 public class OfficeController extends AbstractController<Office, OfficeRequest, OfficeResponse>{
-
     @Autowired
     private OfficeService service;
 
@@ -23,10 +22,7 @@ public class OfficeController extends AbstractController<Office, OfficeRequest, 
     }
 
     @Override
-    protected OfficeResponse toResponse(Office office) {
-        OfficeResponse or = new OfficeResponse(office.getId());
-        or.setCity(office.getCity());
-        or.setStreet(office.getStreet());
-        return or;
+    protected OfficeResponse convertToResponse(Office office) {
+        return new OfficeResponse(office);
     }
 }

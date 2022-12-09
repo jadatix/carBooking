@@ -8,6 +8,16 @@ public class OfficeRequest extends AbstractRequest<Office>{
     private String city;
     private String street;
 
+    public OfficeRequest() {
+
+    }
+
+    public OfficeRequest(Office office) {
+        this.id = office.getId();
+        this.city = office.getCity();
+        this.street = office.getStreet();
+    }
+
     @Override
     public Office create() {
         Office office = new Office(city,street);

@@ -1,11 +1,17 @@
 package org.jadatix.carbooking.api.v1.response;
 
+import org.jadatix.carbooking.api.v1.request.OfficeRequest;
 import org.jadatix.carbooking.model.Office;
 
-public class OfficeResponse extends AbstractResponse{
-
+public class OfficeResponse extends AbstractResponse {
     private String city;
     private String street;
+
+    public OfficeResponse(Office office) {
+        super(office.getId());
+        this.city = office.getCity();
+        this.street = office.getStreet();
+    }
 
     public OfficeResponse(Long id) {
         super(id);

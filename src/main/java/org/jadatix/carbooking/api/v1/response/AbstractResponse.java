@@ -1,12 +1,10 @@
 package org.jadatix.carbooking.api.v1.response;
 
-
-import org.jadatix.carbooking.model.IdentifierEntity;
-
-public abstract class AbstractResponse{
-
-    //do we need hold id in response?
+public abstract class AbstractResponse {
     private Long id;
+
+    public AbstractResponse() {
+    }
 
     public AbstractResponse(Long id) {
         this.id = id;
