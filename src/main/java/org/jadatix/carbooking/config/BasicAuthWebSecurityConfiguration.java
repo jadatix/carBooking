@@ -1,11 +1,10 @@
 package org.jadatix.carbooking.config;
 
 import org.jadatix.carbooking.model.Role;
-import org.jadatix.carbooking.service.JpaUserDetailsService;
+import org.jadatix.carbooking.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,11 +15,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class BasicAuthWebSecurityConfiguration {
 
-    private JpaUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
-    public BasicAuthWebSecurityConfiguration(JpaUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public BasicAuthWebSecurityConfiguration(UserDetailsServiceImpl userDetailsServiceImpl) {
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
     }
 
     @Bean
@@ -33,7 +32,7 @@ public class BasicAuthWebSecurityConfiguration {
                 .and()
                 .httpBasic()
                 .and()
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsServiceImpl);
 
         return http.build();
     }

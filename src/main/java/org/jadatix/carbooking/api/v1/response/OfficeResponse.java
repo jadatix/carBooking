@@ -13,10 +13,6 @@ public class OfficeResponse extends AbstractResponse {
         this.street = office.getStreet();
     }
 
-    public OfficeResponse(Long id) {
-        super(id);
-    }
-
     public String getCity() {
         return city;
     }

@@ -3,10 +3,8 @@ package org.jadatix.carbooking.controller;
 import org.jadatix.carbooking.api.v1.request.OfficeRequest;
 import org.jadatix.carbooking.api.v1.response.OfficeResponse;
 import org.jadatix.carbooking.builder.OfficeBuilder;
-import org.jadatix.carbooking.dao.OfficeDao;
 import org.jadatix.carbooking.model.Office;
 import org.jadatix.carbooking.service.OfficeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -17,7 +15,7 @@ import java.util.function.Function;
 @WebMvcTest
 public class OfficeControllerTest extends AbstractControllerTest<Office, OfficeRequest, OfficeResponse> {
     @MockBean
-    OfficeService officeService;
+    private OfficeService officeService;
 
     @Override
     protected String getControllerPath() {
@@ -36,10 +34,7 @@ public class OfficeControllerTest extends AbstractControllerTest<Office, OfficeR
 
     @Override
     protected List<Function<Office, Object>> getValueToBeUpdated(OfficeRequest request) {
-        List<Function<Office, Object>> parameters = new LinkedList<>();
-        parameters.add(Office::getCity);
-        parameters.add(Office::getStreet);
-        return parameters;
+        return List.of(Office::getCity, Office::getStreet);
     }
 
     @Override

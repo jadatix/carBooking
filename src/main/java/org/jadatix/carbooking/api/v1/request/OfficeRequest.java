@@ -2,8 +2,7 @@ package org.jadatix.carbooking.api.v1.request;
 
 import org.jadatix.carbooking.model.Office;
 
-public class OfficeRequest extends AbstractRequest<Office>{
-
+public class OfficeRequest extends AbstractRequest<Office> {
     private Long id;
     private String city;
     private String street;
