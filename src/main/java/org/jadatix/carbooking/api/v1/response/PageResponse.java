@@ -1,4 +1,4 @@
-package org.jadatix.carbooking.api.v1.controller;
+package org.jadatix.carbooking.api.v1.response;
 
 import java.util.List;
 
