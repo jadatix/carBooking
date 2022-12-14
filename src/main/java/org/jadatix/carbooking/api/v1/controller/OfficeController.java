@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1/offices")
 public class OfficeController extends AbstractController<Office, OfficeRequest, OfficeResponse>{
+
+    private OfficeService service;
+
     @Autowired
-    private OfficeService officeService;
+    public OfficeController(OfficeService service) {
+        this.service = service;
+    }
 
     @Override
     protected OfficeService getService() {
-        return officeService;
+        return service;
     }
 
     @Override

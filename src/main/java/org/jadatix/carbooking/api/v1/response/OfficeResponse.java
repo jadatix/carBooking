@@ -1,6 +1,5 @@
 package org.jadatix.carbooking.api.v1.response;
 
-import org.jadatix.carbooking.api.v1.request.OfficeRequest;
 import org.jadatix.carbooking.model.Office;
 
 public class OfficeResponse extends AbstractResponse {

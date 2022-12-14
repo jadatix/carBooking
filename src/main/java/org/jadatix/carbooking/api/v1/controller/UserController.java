@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1/users")
 public class UserController extends AbstractController<User, UserRequest, UserResponse> {
-    @Autowired
+
     private UserService userService;
+
+    @Autowired
+    UserController(UserService userService){
+        this.userService = userService;
+    }
 
     protected UserService getService() {
         return userService;

@@ -5,6 +5,7 @@ import org.jadatix.carbooking.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,6 +29,12 @@ public class BasicAuthWebSecurityConfiguration {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
+                .authorizeRequests().antMatchers(HttpMethod.DELETE).hasRole(Role.MANAGER.toString())
+                .and()
+                .authorizeRequests().antMatchers(HttpMethod.PUT).hasRole(Role.MANAGER.toString())
+                .and()
+                .authorizeRequests().antMatchers(HttpMethod.POST).hasRole(Role.MANAGER.toString())
+                .and()
                 .authorizeRequests().antMatchers("/h2_console/**").hasRole(Role.MANAGER.toString())
                 .and()
                 .httpBasic()

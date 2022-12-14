@@ -7,19 +7,15 @@ import java.time.LocalDate;
 
 public class UserResponse extends AbstractResponse {
     private Role role;
-    private String passport;
     private String fullName;
     private String email;
-    private String secret;
     private LocalDate birthday;
 
     public UserResponse(User user) {
         super(user.getId());
         this.role = user.getRole();
-        this.passport = user.getPassport();
         this.fullName = user.getFullName();
         this.email = user.getEmail();
-        this.secret = user.getSecret();
         this.birthday = user.getBirthday();
     }
 
@@ -47,14 +43,6 @@ public class UserResponse extends AbstractResponse {
         this.birthday = birthday;
     }
 
-    public String getPassport() {
-        return passport;
-    }
-
-    public void setPassport(String passport) {
-        this.passport = passport;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -63,11 +51,4 @@ public class UserResponse extends AbstractResponse {
         this.email = email;
     }
 
-    public String getSecret() {
-        return secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
 }

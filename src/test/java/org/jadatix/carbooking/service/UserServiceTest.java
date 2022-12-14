@@ -4,6 +4,7 @@ import org.hibernate.annotations.NotFound;
 import org.jadatix.carbooking.builder.UserBuilder;
 import org.jadatix.carbooking.exception.AccessDeniedException;
 import org.jadatix.carbooking.exception.NotFoundException;
+import org.jadatix.carbooking.model.Office;
 import org.jadatix.carbooking.model.Role;
 import org.jadatix.carbooking.model.User;
 import org.junit.jupiter.api.Test;
@@ -105,8 +106,8 @@ class UserServiceTest extends AbstractServiceTest<User> {
 
     @Test
     void testUpdateUserByCurrentUser() {
-        User currentUser = loginAs(Role.USER);
-        currentUser.setId(1L);
+        User currentUser = pushEntityToDb();
+        loginUser(currentUser);
         User user = UserBuilder.builder().setId(currentUser.getId()).build();
         assertDoesNotThrow(() -> service.update(user));
     }

@@ -18,6 +18,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 abstract class AbstractServiceTest<T extends IdentifierEntity> extends AuthRequireable {
 
+    protected T pushEntityToDb(){
+        T t = generateEntity();
+        getService().create(t);
+        return t;
+    }
 
     @Test
     void getAll() {
@@ -56,8 +61,7 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> extends AuthRequi
 
     @Test
     void deleteNotExists() {
-        EntityService<T> service = getService();
-        assertThrows(NotFoundException.class, () -> service.delete(0L));
+        assertThrows(NotFoundException.class, () -> getService().delete(0L));
     }
 
     @Test
@@ -80,6 +84,6 @@ abstract class AbstractServiceTest<T extends IdentifierEntity> extends AuthRequi
 
     protected abstract T generateEntity();
 
-    protected abstract EntityService<T> getService();
+    protected abstract AbstractService<T> getService();
 
 }
