@@ -14,6 +14,7 @@ import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.util.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -23,14 +24,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
         Request extends AbstractRequest<Entity>,
@@ -96,9 +95,29 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
     }
 
     @Test
-    @Disabled("Until implemented patch method")
     public void testPatchItem() throws Exception {
         String path = getControllerPath() + "/{id}";
+        getPatchValuesTestParameters().forEach((requestMap, valueProvider) -> doPatchTest(path, requestMap, valueProvider));
+    }
+
+    private void doPatchTest(String path, Map<String, Object> requestMap,
+                             Pair<Function<Entity, Object>, Object> valueProvider) {
+        Entity entity = getNewEntity();
+        entity.setId(getRandomId());
+
+        mockServiceGetEntity(entity);
+        mockServiceCreateOrUpdateMethod(resultCaptor, whenUpdateInService(any(getEntityClass())));
+
+        try {
+            mvc.perform(patch(path, entity.getId())
+                    .content(getJson(requestMap))
+                    .contentType(MediaType.APPLICATION_JSON)
+            ).andExpect(status().isOk());
+        } catch (Exception e) {
+            fail(e);
+        }
+        Entity updatedEntity = resultCaptor.getResult();
+        assertEquals(valueProvider.getSecond(), valueProvider.getFirst().apply(updatedEntity));
     }
 
     @Test
@@ -293,6 +312,8 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
     protected abstract List<Function<Entity, Object>> getValueToBeUpdated(Request request);
 
     protected abstract Map<List<String>, Sort> getSortingTestParameters();
+
+    protected abstract Map<Map<String, Object>, Pair<Function<Entity, Object>, Object>> getPatchValuesTestParameters();
 
     protected abstract Entity getNewEntity();
 

@@ -8,6 +8,7 @@ import org.jadatix.carbooking.service.OfficeService;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.util.Pair;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +47,14 @@ public class OfficeControllerTest extends AbstractControllerTest<Office, OfficeR
                 List.of("street,desc"), Sort.by("street").descending(),
                 List.of("city"), Sort.by("city").ascending(),
                 List.of("city,desc"), Sort.by("city").descending()
+        );
+    }
+
+    @Override
+    protected Map<Map<String, Object>, Pair<Function<Office, Object>, Object>> getPatchValuesTestParameters() {
+        return Map.of(
+                Map.of("city", "city"), Pair.of(Office::getCity, "city"),
+                Map.of("street", "street"), Pair.of(Office::getStreet, "street")
         );
     }
 
