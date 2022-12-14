@@ -8,6 +8,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.function.Function;
+
 @Service
 public class UserService extends AbstractService<User> {
 
@@ -19,14 +21,22 @@ public class UserService extends AbstractService<User> {
 
     @Override
     public User create(User user) {
+        return performUpdateOrCreate(user, UserService.super::create);
+    }
+
+    @Override
+    public User update(User user) {
+        return performUpdateOrCreate(user, UserService.super::update);
+    }
+
+    private User performUpdateOrCreate(User user, Function<User,User> function){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setSecret(encoder.encode(user.getSecret()));
         try {
-            return super.create(user);
+            return function.apply(user);
         } catch (DataIntegrityViolationException exception){
             throw new UserAlreadyExistsException();
         }
-
     }
 
     @Override

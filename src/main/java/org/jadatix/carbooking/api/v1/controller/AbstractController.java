@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import static java.util.Objects.isNull;
+
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -105,4 +107,21 @@ public abstract class AbstractController<Entity extends IdentifierEntity, Reques
     private Sort.Order mapSortProperty(Sort.Order order) {
         return new Sort.Order(order.getDirection(), order.getProperty(), order.getNullHandling());
     }
+
+    @PatchMapping("/{id}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Response patch(@PathVariable Long id, @RequestBody Map<String, Object> body){
+        Entity entity = getService().get(id);
+        entity.setId(id);
+        patchEntity(entity, body);
+        return convertToResponse(getService().update(entity));
+    }
+
+    protected void patchEntity(Entity entity, Map<String, Object> requestBody){
+        requestBody.entrySet().forEach(field -> convertPatchField(entity,field));
+    }
+
+    protected abstract void convertPatchField(Entity entity, Map.Entry<String, Object> requestBody);
+
 }

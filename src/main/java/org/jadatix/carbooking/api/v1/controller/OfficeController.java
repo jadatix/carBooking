@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("api/v1/offices")
@@ -28,5 +30,20 @@ public class OfficeController extends AbstractController<Office, OfficeRequest, 
     @Override
     protected OfficeResponse convertToResponse(Office office) {
         return new OfficeResponse(office);
+    }
+
+    @Override
+    protected void convertPatchField(Office entity, Map.Entry<String, Object> requestBody) {
+        String newValue = String.valueOf(requestBody.getValue());
+        switch(requestBody.getKey()){
+            case "city":
+                entity.setCity(newValue);
+                break;
+            case "street":
+                entity.setStreet(newValue);
+                break;
+            default:
+                break;
+        }
     }
 }
