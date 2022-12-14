@@ -1,8 +1,10 @@
 package org.jadatix.carbooking.service;
 
 import org.jadatix.carbooking.dao.UserDao;
+import org.jadatix.carbooking.exception.UserAlreadyExistsException;
 import org.jadatix.carbooking.model.User;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,12 @@ public class UserService extends AbstractService<User> {
     public User create(User user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setSecret(encoder.encode(user.getSecret()));
-        return super.create(user);
+        try {
+            return super.create(user);
+        } catch (DataIntegrityViolationException exception){
+            throw new UserAlreadyExistsException();
+        }
+
     }
 
     @Override
