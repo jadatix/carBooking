@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class JpaUserDetailsService implements UserDetailsService {
 
     private UserDao userDao;
 
     @Autowired
-    public UserDetailsServiceImpl(UserDao userDao) {
+    public JpaUserDetailsService(UserDao userDao) {
         this.userDao = userDao;
     }
 

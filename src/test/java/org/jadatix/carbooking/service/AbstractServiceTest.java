@@ -1,6 +1,5 @@
 package org.jadatix.carbooking.service;
 
-import org.jadatix.carbooking.AuthRequireable;
 import org.jadatix.carbooking.builder.UserBuilder;
 import org.jadatix.carbooking.exception.NotFoundException;
 import org.jadatix.carbooking.model.IdentifierEntity;
@@ -16,8 +15,26 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-abstract class AbstractServiceTest<T extends IdentifierEntity> extends AuthRequireable {
+abstract class AbstractServiceTest<T extends IdentifierEntity> {
 
+    @BeforeEach
+    public void logoutUser() {
+        loginAs(Role.MANAGER);
+    }
+
+    protected User loginAs(Role role) {
+        User user = UserBuilder.builder().setRole(role).build();
+        loginUser(user);
+        return user;
+    }
+
+    protected void loginUser(User user) {
+        SecurityContextHolder.clearContext();
+        SecurityUser securityUser = new SecurityUser(user);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(securityUser,
+                securityUser.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(token);
+    }
 
     @Test
     void getAll() {

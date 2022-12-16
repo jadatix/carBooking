@@ -22,6 +22,9 @@ public class UserService extends AbstractService<User> {
         return super.create(user);
     }
 
+
+
+
     @Override
     protected UserDao getDao() {
         return dao;
