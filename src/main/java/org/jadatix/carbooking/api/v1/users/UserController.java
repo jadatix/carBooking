@@ -1,55 +1,27 @@
 package org.jadatix.carbooking.api.v1.users;
 
+import org.jadatix.carbooking.api.v1.controller.AbstractController;
+import org.jadatix.carbooking.api.v1.request.UserRequest;
+import org.jadatix.carbooking.api.v1.response.UserResponse;
 import org.jadatix.carbooking.model.User;
 import org.jadatix.carbooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/users")
-public class UserController {
-
+public class UserController extends AbstractController<User, UserRequest, UserResponse> {
+    @Autowired
     private UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    protected UserService getService() {
+        return userService;
     }
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAll();
+    @Override
+    protected UserResponse convertToResponse(User user) {
+        return new UserResponse(user);
     }
-
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
-        User user = userService.get(id);
-        return ResponseEntity.ok().body(user);
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
-    }
-
-    @DeleteMapping(path = "/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<String> deleteUser(@PathVariable("id") Long id) {
-        userService.delete(id);
-        return new ResponseEntity<>("User was deleted successfully",
-                HttpStatus.NO_CONTENT);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUserById(@RequestBody User user,
-            @PathVariable("id") Long id) {
-        User updatedUser = userService.update(user);
-        return ResponseEntity.ok().body(updatedUser);
-    }
-
 }
