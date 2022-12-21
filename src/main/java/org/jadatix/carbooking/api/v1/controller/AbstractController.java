@@ -123,5 +123,6 @@ public abstract class AbstractController<Entity extends IdentifierEntity, Reques
     }
 
     protected abstract void convertPatchField(Entity entity, Map.Entry<String, Object> requestBody);
+    protected abstract void validateField(String fieldName, Object fieldValue);
 
 }

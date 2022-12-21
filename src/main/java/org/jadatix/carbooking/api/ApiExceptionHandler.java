@@ -1,5 +1,6 @@
 package org.jadatix.carbooking.api;
 
+import org.jadatix.carbooking.exception.FieldValidationException;
 import org.jadatix.carbooking.exception.UserAlreadyExistsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,4 +24,9 @@ public class ApiExceptionHandler {
     String userAlreadyExistsExceptionHandler(UserAlreadyExistsException exception){
         return exception.getMessage();
     }
+
+    @ExceptionHandler(FieldValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    String fieldValidationExceptionHandler(FieldValidationException exception){return exception.getMessage();}
 }

@@ -2,9 +2,13 @@ package org.jadatix.carbooking.api.v1.request;
 
 import org.jadatix.carbooking.model.Office;
 
+import javax.validation.constraints.NotBlank;
+
 public class OfficeRequest extends AbstractRequest<Office> {
     private Long id;
+    @NotBlank
     private String city;
+    @NotBlank
     private String street;
 
     public OfficeRequest() {

@@ -3,16 +3,28 @@ package org.jadatix.carbooking.api.v1.request;
 import org.jadatix.carbooking.model.Role;
 import org.jadatix.carbooking.model.User;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 public class UserRequest extends AbstractRequest<User> {
 
     private Long id;
+    @NotNull
     private Role role;
+    @NotBlank
     private String passport;
+    @NotBlank
     private String fullName;
+    @NotBlank
+    @Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})")
     private String email;
+    @NotBlank
     private String secret;
+    @Past
+    @NotNull
     private LocalDate birthday;
 
     public UserRequest() {

@@ -4,6 +4,7 @@ import org.jadatix.carbooking.api.v1.request.UserRequest;
 import org.jadatix.carbooking.api.v1.response.UserResponse;
 import org.jadatix.carbooking.builder.UserBuilder;
 import org.jadatix.carbooking.model.Office;
+import org.jadatix.carbooking.model.Role;
 import org.jadatix.carbooking.model.User;
 import org.jadatix.carbooking.service.UserService;
 import org.junit.jupiter.api.Disabled;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Pair;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -57,11 +59,11 @@ public class UserControllerTest extends AbstractControllerTest<User, UserRequest
     @Override
     protected Map<Map<String, Object>, Pair<Function<User, Object>, Object>> getPatchValuesTestParameters() {
         return Map.of(
-                Map.of("role", "role"), Pair.of(User::getRole, "role"),
+                Map.of("role", "USER"), Pair.of(User::getRole, Role.USER),
                 Map.of("passport", "passport"), Pair.of(User::getPassport, "passport"),
                 Map.of("fullName", "fullName"), Pair.of(User::getFullName, "fullName"),
-                Map.of("email", "email"), Pair.of(User::getEmail, "email"),
-                Map.of("birthday", "birthday"), Pair.of(User::getBirthday, "birthday"),
+                Map.of("email", "email@xampul.com"), Pair.of(User::getEmail, "email@xampul.com"),
+                Map.of("birthday", "2022-01-02"), Pair.of(User::getBirthday, LocalDate.parse("2022-01-02")),
                 Map.of("secret", "secret"), Pair.of(User::getSecret, "secret")
         );
     }
