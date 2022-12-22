@@ -1,6 +1,5 @@
 package org.jadatix.carbooking.service;
 
-import org.jadatix.carbooking.dao.Dao;
 import org.jadatix.carbooking.dao.OfficeDao;
 import org.jadatix.carbooking.exception.AccessDeniedException;
 import org.jadatix.carbooking.model.Office;
@@ -16,7 +15,7 @@ public class OfficeService extends AbstractService<Office> {
     }
 
     @Override
-    protected Dao<Office> getDao() {
+    protected OfficeDao getDao() {
         return dao;
     }
 

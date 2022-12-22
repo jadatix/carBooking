@@ -1,27 +1,32 @@
 package org.jadatix.carbooking.api;
 
+import org.jadatix.carbooking.exception.FieldValidationException;
 import org.jadatix.carbooking.exception.UserAlreadyExistsException;
-import org.jadatix.carbooking.exception.UserNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
+
+import org.jadatix.carbooking.exception.NotFoundException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
-
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String userNotFoundHandler(UserNotFoundException ex) {
-        return ex.getMessage();
+    String notFoundExceptionHandler(NotFoundException exception) {
+        return exception.getMessage();
     }
 
-    @ResponseBody
     @ExceptionHandler(UserAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    String userAlreadyExistHandler(UserAlreadyExistsException ex) {
-        return ex.getMessage();
+    @ResponseBody
+    String userAlreadyExistsExceptionHandler(UserAlreadyExistsException exception){
+        return exception.getMessage();
     }
 
+    @ExceptionHandler(FieldValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    String fieldValidationExceptionHandler(FieldValidationException exception){return exception.getMessage();}
 }

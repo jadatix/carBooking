@@ -1,7 +1,7 @@
 package org.jadatix.carbooking.config;
 
 import org.jadatix.carbooking.model.Role;
-import org.jadatix.carbooking.service.JpaUserDetailsService;
+import org.jadatix.carbooking.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +16,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class BasicAuthWebSecurityConfiguration {
 
-    private JpaUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
-    public BasicAuthWebSecurityConfiguration(JpaUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public BasicAuthWebSecurityConfiguration(UserDetailsServiceImpl userDetailsServiceImpl) {
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
     }
 
     @Bean
@@ -29,11 +29,17 @@ public class BasicAuthWebSecurityConfiguration {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
+                .authorizeRequests().antMatchers(HttpMethod.DELETE).hasRole(Role.MANAGER.toString())
+                .and()
+                .authorizeRequests().antMatchers(HttpMethod.PUT).hasRole(Role.MANAGER.toString())
+                .and()
+                .authorizeRequests().antMatchers(HttpMethod.POST).hasRole(Role.MANAGER.toString())
+                .and()
                 .authorizeRequests().antMatchers("/h2_console/**").hasRole(Role.MANAGER.toString())
                 .and()
                 .httpBasic()
                 .and()
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsServiceImpl);
 
         return http.build();
     }
