@@ -1,10 +1,14 @@
 package org.jadatix.carbooking.api.v1.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.jadatix.carbooking.model.Office;
 
 public class OfficeRequest extends AbstractRequest<Office> {
+    @Schema(description = "Office id", example = "1")
     private Long id;
+    @Schema(description = "Office city", example = "Kyiv")
     private String city;
+    @Schema(description = "Office street", example = "Khreshchatyk")
     private String street;
 
     public OfficeRequest() {
@@ -19,7 +23,7 @@ public class OfficeRequest extends AbstractRequest<Office> {
 
     @Override
     public Office create() {
-        Office office = new Office(city,street);
+        Office office = new Office(city, street);
         office.setId(id);
         return office;
     }
