@@ -32,9 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
-        Request extends AbstractRequest<Entity>,
-        Response extends AbstractResponse> extends SpringBasedControllerTest {
+public abstract class AbstractControllerTest<Entity extends IdentifierEntity, Request extends AbstractRequest<Entity>, Response extends AbstractResponse>
+        extends SpringBasedControllerTest {
     protected ResultCaptor<Entity> resultCaptor;
 
     @BeforeEach
@@ -47,9 +46,9 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
         mockServiceCreateOrUpdateMethod(resultCaptor, whenCreateInService(any(getEntityClass())));
 
         ResultActions resultActions = mvc.perform(post(getControllerPath())
-                        .content(getJson(getNewRequest()))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                .content(getJson(getNewRequest()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
         assertNotNull(resultCaptor.getResult());
@@ -58,7 +57,8 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
         resultActions.andExpect(content().json(getJson(expectedResponse)));
     }
 
-    protected <T> void mockServiceCreateOrUpdateMethod(ResultCaptor<Entity> resultCaptor, OngoingStubbing<T> ongoingStubbing) {
+    protected <T> void mockServiceCreateOrUpdateMethod(ResultCaptor<Entity> resultCaptor,
+            OngoingStubbing<T> ongoingStubbing) {
         ongoingStubbing.thenAnswer(invocation -> {
             Entity entity = invocation.getArgument(0, getEntityClass());
             entity.setId(getRandomId());
@@ -83,8 +83,7 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
 
         ResultActions resultActions = mvc.perform(put(getControllerPath() + "/{id}", entity.getId())
                 .content(getJson(request))
-                .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
         Entity updatedEntity = resultCaptor.getResult();
         Response expectedResponse = convertToResponse(updatedEntity);
@@ -111,7 +110,7 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
         Response expectedResponse = convertToResponse(entity);
 
         mvc.perform(get(getControllerPath() + "/{id}", entity.getId())
-                        .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(getJson(expectedResponse)));
@@ -142,7 +141,7 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
                 page.getTotalElements(), page.getNumber(), page.getSize());
 
         mvc.perform(get(getControllerPath())
-                        .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(getJson(expectedPageResponse)));
     }
@@ -156,8 +155,8 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
         when(getService().get(any(Pageable.class))).thenReturn(page);
 
         mvc.perform(get(getControllerPath())
-                        .accept(MediaType.APPLICATION_JSON)
-                        .param("index", "0"))
+                .accept(MediaType.APPLICATION_JSON)
+                .param("index", "0"))
                 .andExpect(status().isOk());
 
         Pageable lastPageRequest = getLastPageRequest();
@@ -172,9 +171,9 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
         when(getService().get(any(Pageable.class))).thenReturn(page);
 
         mvc.perform(get(getControllerPath())
-                        .accept(MediaType.APPLICATION_JSON)
-                        .param("index", "50")
-                        .param("size", "100"))
+                .accept(MediaType.APPLICATION_JSON)
+                .param("index", "50")
+                .param("size", "100"))
                 .andExpect(status().isOk());
 
         Pageable lastPageRequest = getLastPageRequest();
@@ -240,8 +239,8 @@ public abstract class AbstractControllerTest<Entity extends IdentifierEntity,
         whenUpdateInService(any(getEntityClass())).thenThrow(NotFoundException.class);
 
         mvc.perform(put(getControllerPath() + "/{id}", entity.getId())
-                        .content(getJson(request))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .content(getJson(request))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 

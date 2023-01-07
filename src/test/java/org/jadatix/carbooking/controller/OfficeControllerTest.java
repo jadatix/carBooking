@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -45,8 +44,7 @@ public class OfficeControllerTest extends AbstractControllerTest<Office, OfficeR
                 List.of("street"), Sort.by("street").ascending(),
                 List.of("street,desc"), Sort.by("street").descending(),
                 List.of("city"), Sort.by("city").ascending(),
-                List.of("city,desc"), Sort.by("city").descending()
-        );
+                List.of("city,desc"), Sort.by("city").descending());
     }
 
     @Override

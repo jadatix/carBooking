@@ -14,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +28,8 @@ public abstract class AbstractController<Entity extends IdentifierEntity, Reques
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public PageResponse<Response> getAll(@RequestParam(defaultValue = "0") Integer index,
-                                         @RequestParam(defaultValue = "10") Integer size,
-                                         @PathParam(value = "sort") Sort sort) {
+            @RequestParam(defaultValue = "10") Integer size,
+            @PathParam(value = "sort") Sort sort) {
         sort = mapSortProperties(sort);
 
         Pageable pageable = PageRequest.of(index, size, sort);
