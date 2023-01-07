@@ -23,7 +23,7 @@ public class OfficeRequest extends AbstractRequest<Office> {
 
     @Override
     public Office create() {
-        Office office = new Office(city,street);
+        Office office = new Office(city, street);
         office.setId(id);
         return office;
     }

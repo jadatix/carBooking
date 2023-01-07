@@ -7,7 +7,7 @@ import org.jadatix.carbooking.model.User;
 import java.time.LocalDate;
 
 public class UserResponse extends AbstractResponse {
-    @Schema(description = "User role", example = "USER", allowableValues = {"USER", "MANAGER"})
+    @Schema(description = "User role", example = "USER", allowableValues = { "USER", "MANAGER" })
     private Role role;
     @Schema(description = "User passport", example = "ABC-DEF")
     private String passport;

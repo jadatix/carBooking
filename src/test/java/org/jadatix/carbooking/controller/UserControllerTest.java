@@ -48,8 +48,7 @@ public class UserControllerTest extends AbstractControllerTest<User, UserRequest
                 List.of("email"), Sort.by("email").ascending(),
                 List.of("email,desc"), Sort.by("email").descending(),
                 List.of("birthday"), Sort.by("birthday").ascending(),
-                List.of("birthday,desc"), Sort.by("birthday").descending()
-        );
+                List.of("birthday,desc"), Sort.by("birthday").descending());
     }
 
     @Override

@@ -30,7 +30,7 @@ public abstract class AbstractController<Entity extends IdentifierEntity, Reques
     @GetMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Get all entities", description = "Get all entities", tags = {"getAll"}, responses = {
+    @Operation(summary = "Get all entities", description = "Get all entities", tags = { "getAll" }, responses = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     }, parameters = {
@@ -39,8 +39,8 @@ public abstract class AbstractController<Entity extends IdentifierEntity, Reques
             @Parameter(name = "sort", description = "Sort field. The default sorting is ascending", required = false, example = "id,desc"),
     })
     public PageResponse<Response> getAll(@RequestParam(defaultValue = "0") Integer index,
-                                         @RequestParam(defaultValue = "10") Integer size,
-                                         @PathParam(value = "sort") Sort sort) {
+            @RequestParam(defaultValue = "10") Integer size,
+            @PathParam(value = "sort") Sort sort) {
         sort = mapSortProperties(sort);
 
         Pageable pageable = PageRequest.of(index, size, sort);
@@ -60,7 +60,7 @@ public abstract class AbstractController<Entity extends IdentifierEntity, Reques
     @GetMapping("/{id}")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Get entity by id", description = "Returns entity by id", tags = {"get"}, responses = {
+    @Operation(summary = "Get entity by id", description = "Returns entity by id", tags = { "get" }, responses = {
             @ApiResponse(responseCode = "200", description = "Entity found"),
             @ApiResponse(responseCode = "404", description = "Entity not found")
     }, parameters = {
@@ -77,7 +77,7 @@ public abstract class AbstractController<Entity extends IdentifierEntity, Reques
     @PostMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Create entity", description = "Create entity", tags = {"create"}, responses = {
+    @Operation(summary = "Create entity", description = "Create entity", tags = { "create" }, responses = {
             @ApiResponse(responseCode = "201", description = "Entity created"),
             @ApiResponse(responseCode = "400", description = "Bad request")
     }, requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Entity to create", required = true))
@@ -89,7 +89,7 @@ public abstract class AbstractController<Entity extends IdentifierEntity, Reques
     @PutMapping("/{id}")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Update entity", description = "Update entity", tags = {"update"}, responses = {
+    @Operation(summary = "Update entity", description = "Update entity", tags = { "update" }, responses = {
             @ApiResponse(responseCode = "200", description = "Entity updated"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Entity not found")
@@ -106,7 +106,7 @@ public abstract class AbstractController<Entity extends IdentifierEntity, Reques
     @DeleteMapping("/{id}")
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete entity", description = "Delete entity", tags = {"delete"}, responses = {
+    @Operation(summary = "Delete entity", description = "Delete entity", tags = { "delete" }, responses = {
             @ApiResponse(responseCode = "204", description = "Entity deleted"),
             @ApiResponse(responseCode = "404", description = "Entity not found")
     }, parameters = {

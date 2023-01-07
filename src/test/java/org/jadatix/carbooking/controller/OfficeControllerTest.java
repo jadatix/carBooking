@@ -45,8 +45,7 @@ public class OfficeControllerTest extends AbstractControllerTest<Office, OfficeR
                 List.of("street"), Sort.by("street").ascending(),
                 List.of("street,desc"), Sort.by("street").descending(),
                 List.of("city"), Sort.by("city").ascending(),
-                List.of("city,desc"), Sort.by("city").descending()
-        );
+                List.of("city,desc"), Sort.by("city").descending());
     }
 
     @Override
